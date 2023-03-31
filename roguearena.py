@@ -2,6 +2,8 @@
 from random import randint
 from click import clear
 import sys,tty,os,termios
+import pickle
+import json
 
 #global variables
 keylogging = False
@@ -129,44 +131,52 @@ def getkey():
 def save_game(state):
     global savegameslot
     if savegameslot == "1":
-        with open("save_game.txt", "w") as f:
-            f.write(str(state))
+        with open("savegame.txt", "w") as save_file:
+            json.dump(state, save_file) 
     elif savegameslot == "2":
-        with open("save_game2.txt", "w") as f:
-            f.write(str(state))     
+        with open("savegame2.txt", "w") as save_file:
+            json.dump(state, save_file) 
     elif savegameslot == "3":
-        with open("save_game3.txt", "w") as f:
-            f.write(str(state))    
+        with open("savegame3.txt", "w") as save_file:
+            json.dump(state, save_file) 
     else:
         print("Invalid save slot!\n")
         input()
         town()
+    print("Game saved!\n")
+    input()
     town()
-
+        
 def load_game():
     global savegameslot
-    try:
-        if savegameslot == "1":
-            with open("save_game.txt", "r") as f:
-                state = eval(f.read())
-                print("Loaded game state:", state) 
-                input()
-        elif savegameslot == "2":
-            with open("save_game2.txt", "r") as f:
-                state = eval(f.read())
-        elif savegameslot == "3":
-            with open("save_game3.txt", "r") as f:
-                state = eval(f.read())  
-        else:
-            print("Invalid save file!\n")   
-            input()
-            gamestart()
-    except Exception as e:
-        print("Error loading game:", e)
+    if savegameslot == "1":
+        try:
+            with open("savegame.txt", "r") as save_file:
+                state = json.load(save_file)
+                return state
+        except FileNotFoundError:
+            return None
+    elif savegameslot == "2":
+        try:
+            with open("savegame2.txt", "r") as save_file:
+                state = json.load(save_file)
+                return state
+        except FileNotFoundError:
+            return None
+    elif savegameslot == "3":
+        try:
+            with open("savegame3.txt", "r") as save_file:
+                state = json.load(save_file)
+                return state
+        except FileNotFoundError:
+            return None   
+    else:
+        print("Invalid save file!\n")
         input()
-        return None
+        gamestart()
+    print("File loaded!\n")
+    input()
     filemenu(state)
-    town()
            
 def filemenu(game_state=None):
     global attack
@@ -285,7 +295,7 @@ def filemenu(game_state=None):
     spellvalue4 = game_state.get("spellvalue4", 0) if game_state else 0
     spellvalue5 = game_state.get("spellvalue5", 0) if game_state else 0
     spellvalue6 = game_state.get("spellvalue6", 0) if game_state else 0  
-    return
+    town()
 
 def gamestart():
     global savegameslot
@@ -637,6 +647,7 @@ def town():
     global firstturn
     global keylogging    
     global gold
+    firstturn = True
     keylogging = False
     health = 100
     clear()
