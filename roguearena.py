@@ -8,99 +8,112 @@ import json
 #global variables
 keylogging = False
 action = ""
-attack = 1
-defense = 1
-agility = 1
-magic = 1
-heritage = "heritage"
-playerclass = "class"
-playername = "Steven"
-classlevel = 0
-effectivelevel = 0
-weaponname = "dagger"
-weapon = 1
-armorname = "clothes"
-armor = 1
-magicweaponname = "nothing"
-magicweapon = 0
-charmname = "copper ring"
-charm = 1
-spellslot1 = "       "
-spellslot2 = "       "
-spellslot3 = "       "
-spellslot4 = "       "
-health = 20
-enemyname = "mook"
-enemybreath = False
-enemycancast = False
-enemycanheal = False
-enemyattack = 1
-enemydefense = 1
-enemyagility = 1
-enemymagic = 1
-enemyweapon = 0
-enemyarmor = 0
-enemymagicweapon = 0
-enemycharm = 0
-enemyhealth = 20
-enemylevel = 1
-xpdrop = 10
-golddrop = 10
-experience = 0
-firstturn = True
-playerturn = False
-sneak = False
-woundpenalty = 0
-enemywound = ""
-incombat = False
-magicmenu = False
-enemysleepcounter = 0
-freshweapons = True
-fresharmor = True
-freshmagicweapons = True
-freshcharms = True
-freshspells = True
-gold = 50
-purchaseitem = "rubber chicken"
-itemvalue = 333
-itembonus = 3
-itemtype = "gag"
-totalassets = 0
-resellitem = "cosmic hammer"
-resellvalue = 5
-weaponvalue1 = 1
-weaponvalue2 = 2
-weaponvalue3 = 3
-weaponvalue4 = 4
-weaponvalue5 = 5
-weaponvalue6 = 6
-armorvalue1 = 1
-armorvalue2 = 2
-armorvalue3 = 3
-armorvalue4 = 4
-armorvalue5 = 5
-armorvalue6 = 6
-mweaponvalue1 = 1
-mweaponvalue2 = 2
-mweaponvalue3 = 3
-mweaponvalue4 = 4
-mweaponvalue5 = 5
-mweaponvalue6 = 6
-charmvalue1 = 1
-charmvalue2 = 2
-charmvalue3 = 3
-charmvalue4 = 4
-charmvalue5 = 5
-charmvalue6 = 6
-spellvalue1 = 1
-spellvalue2 = 2
-spellvalue3 = 3
-spellvalue4 = 4
-spellvalue5 = 5
-spellvalue6 = 6
+player_stats = {
+    "playername": "Steven",
+    "weaponname": "dagger",
+    "armorname": "clothes",
+    "magicweaponname": "nothing",
+    "charmname": "copper ring",
+    "attack": 1,
+    "defense": 1,
+    "agility": 1,
+    "magic": 1,
+    "heritage": "human",
+    "playerclass": "warrior",
+    "classlevel": 0,
+    "effectivelevel": 0,
+    "weapon": 1,
+    "armor": 1,
+    "magicweapon": 0,
+    "charm": 1,
+    "spellslot1": "       ",
+    "spellslot2": "       ",
+    "spellslot3": "       ",
+    "spellslot4": "       ",
+    "health": 100,
+    "experience": 0,
+    "gold": 50,
+    "freshweapons": True,
+    "fresharmor": True,
+    "freshmagicweapons": True,
+    "freshcharms": True,
+    "freshspells": True
+}
+item_values = {
+    "weaponvalue1": 1,
+    "weaponvalue2": 2,
+    "weaponvalue3": 3,
+    "weaponvalue4": 4,
+    "weaponvalue5": 5,
+    "weaponvalue6": 6,
+    "armorvalue1": 1,
+    "armorvalue2": 2,
+    "armorvalue3": 3,
+    "armorvalue4": 4,
+    "armorvalue5": 5,
+    "armorvalue6": 6,
+    "mweaponvalue1": 1,
+    "mweaponvalue2": 2,
+    "mweaponvalue3": 3,
+    "mweaponvalue4": 4,
+    "mweaponvalue5": 5,
+    "mweaponvalue6": 6,
+    "charmvalue1": 1,
+    "charmvalue2": 2,
+    "charmvalue3": 3,
+    "charmvalue4": 4,
+    "charmvalue5": 5,
+    "charmvalue6": 6,
+    "spellvalue1": 1,
+    "spellvalue2": 2,
+    "spellvalue3": 3,
+    "spellvalue4": 4,
+    "spellvalue5": 5,
+    "spellvalue6": 6
+}
+
+enemy_stats = {
+    "enemyname": "mook",
+    "enemybreath": False,
+    "enemycancast": False,
+    "enemycanheal": False,
+    "enemyattack": 1,
+    "enemydefense": 1,
+    "enemyagility": 1,
+    "enemymagic": 1,
+    "enemyweapon": 0,
+    "enemyarmor": 0,
+    "enemymagic"]weapon": 0,
+    "enemycharm": 0,
+    "enemyhealth": 20,
+    "enemylevel": 1,
+    "xpdrop": 10,
+    "golddrop": 10,
+    "enemysleepcounter": 0,
+    "enemywound": ""
+}
+
+combat_variables = {
+    "firstturn": True,
+    "playerturn": False,
+    "sneak": False,
+    "woundpenalty": 0,
+    "incombat": False,
+    "magicmenu": False
+}
+
+shop_variables = {
+    "purchaseitem": "rubber chicken",
+    "itemvalue": 333,
+    "itembonus": 3,
+    "itemtype": "gag",
+    "totalassets": 0,
+    "resellitem": "cosmic hammer",
+    "resellvalue": 5
+}
+
 slotchosen = 1
 savegameslot = "1"
-freshgame = True
 
 # key logging function
 def getkey():
@@ -128,10 +141,9 @@ def getkey():
     finally:
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
 
-def save_game(state):
-    global savegameslot
+def save_game(state, savegameslot):
     if savegameslot == "1":
-        with open("savegame.txt", "w") as save_file:
+        with open("savegame1.txt", "w") as save_file:
             json.dump(state, save_file) 
     elif savegameslot == "2":
         with open("savegame2.txt", "w") as save_file:
@@ -149,154 +161,40 @@ def save_game(state):
         
 def load_game():
     global savegameslot
-    if savegameslot == "1":
-        try:
-            with open("savegame.txt", "r") as save_file:
-                state = json.load(save_file)
-                return state
-        except FileNotFoundError:
-            return None
-    elif savegameslot == "2":
-        try:
-            with open("savegame2.txt", "r") as save_file:
-                state = json.load(save_file)
-                return state
-        except FileNotFoundError:
-            return None
-    elif savegameslot == "3":
-        try:
-            with open("savegame3.txt", "r") as save_file:
-                state = json.load(save_file)
-                return state
-        except FileNotFoundError:
-            return None   
-    else:
+    filename = f"savegame{savegameslot}.txt"
+    try:
+        with open(filename, "r") as save_file:
+            state = json.load(save_file)
+            print("File loaded!\n")
+            input()
+            filemenu(state)
+    except FileNotFoundError:
         print("Invalid save file!\n")
         input()
         gamestart()
-    print("File loaded!\n")
-    input()
-    filemenu(state)
            
 def filemenu(game_state=None):
-    global attack
-    global defense
-    global agility
-    global magic
-    global heritage
-    global playerclass
-    global playername
-    global classlevel
-    global effectivelevel
-    global weaponname
-    global weapon
-    global armorname
-    global armor
-    global magicweaponname
-    global magicweapon
-    global charmname
-    global charm
-    global spellslot1
-    global spellslot2
-    global spellslot3
-    global spellslot4
-    global experience
-    global freshweapons
-    global fresharmor
-    global freshmagicweapons
-    global freshcharms
-    global freshspells
-    global gold
-    global weaponvalue1
-    global weaponvalue2
-    global weaponvalue3
-    global weaponvalue4
-    global weaponvalue5
-    global weaponvalue6
-    global armorvalue1
-    global armorvalue2
-    global armorvalue3
-    global armorvalue4
-    global armorvalue5
-    global armorvalue6
-    global mweaponvalue1
-    global mweaponvalue2
-    global mweaponvalue3
-    global mweaponvalue4
-    global mweaponvalue5
-    global mweaponvalue6
-    global charmvalue1
-    global charmvalue2
-    global charmvalue3
-    global charmvalue4
-    global charmvalue5
-    global charmvalue6
-    global spellvalue1
-    global spellvalue2
-    global spellvalue3
-    global spellvalue4
-    global spellvalue5
-    global spellvalue6 
-    attack = game_state.get("attack", 0) if game_state else 0
-    defense = game_state.get("defense", 0) if game_state else 0
-    agility = game_state.get("agility", 0) if game_state else 0
-    magic = game_state.get("magic", 0) if game_state else 0
-    heritage = game_state.get("heritage", 0) if game_state else 0
-    playerclass = game_state.get("playerclass", 0) if game_state else 0
-    playername = game_state.get("playername", 0) if game_state else 0
-    classlevel = game_state.get("classlevel", 0) if game_state else 0
-    effectivelevel = game_state.get("effectivelevel", 0) if game_state else 0
-    weaponname = game_state.get("weaponname", 0) if game_state else 0
-    weapon = game_state.get("weapon", 0) if game_state else 0
-    armorname = game_state.get("armorname", 0) if game_state else 0
-    armor = game_state.get("armor", 0) if game_state else 0
-    magicweaponname = game_state.get("magicweaponname", 0) if game_state else 0
-    magicweapon = game_state.get("magicweapon", 0) if game_state else 0
-    charmname = game_state.get("charmname", 0) if game_state else 0
-    charm = game_state.get("charm", 0) if game_state else 0
-    spellslot1 = game_state.get("spellslot1", 0) if game_state else 0
-    spellslot2 = game_state.get("spellslot2", 0) if game_state else 0
-    spellslot3 = game_state.get("spellslot3", 0) if game_state else 0
-    spellslot4 = game_state.get("spellslot4", 0) if game_state else 0
-    experience = game_state.get("experience", 0) if game_state else 0
-    freshweapons = game_state.get("freshweapons", 0) if game_state else 0
-    fresharmor = game_state.get("fresharmor", 0) if game_state else 0
-    freshmagicweapons = game_state.get("freshmagicweapons", 0) if game_state else 0
-    freshcharms = game_state.get("freshcharms", 0) if game_state else 0
-    freshspells = game_state.get("freshspells", 0) if game_state else 0
-    gold = game_state.get("gold", 0) if game_state else 0
-    weaponvalue1 = game_state.get("weaponvalue1", 0) if game_state else 0
-    weaponvalue2 = game_state.get("weaponvalue2", 0) if game_state else 0
-    weaponvalue3 = game_state.get("weaponvalue3", 0) if game_state else 0
-    weaponvalue4 = game_state.get("weaponvalue4", 0) if game_state else 0
-    weaponvalue5 = game_state.get("weaponvalue5", 0) if game_state else 0
-    weaponvalue6 = game_state.get("weaponvalue6", 0) if game_state else 0
-    armorvalue1 = game_state.get("armorvalue1", 0) if game_state else 0
-    armorvalue2 = game_state.get("armorvalue2", 0) if game_state else 0
-    armorvalue3 = game_state.get("armorvalue3", 0) if game_state else 0
-    armorvalue4 = game_state.get("armorvalue4", 0) if game_state else 0
-    armorvalue5 = game_state.get("armorvalue5", 0) if game_state else 0
-    armorvalue6 = game_state.get("armorvalue6", 0) if game_state else 0
-    mweaponvalue1 = game_state.get("mweaponvalue1", 0) if game_state else 0
-    mweaponvalue2 = game_state.get("mweaponvalue2", 0) if game_state else 0
-    mweaponvalue3 = game_state.get("mweaponvalue3", 0) if game_state else 0
-    mweaponvalue4 = game_state.get("mweaponvalue4", 0) if game_state else 0
-    mweaponvalue5 = game_state.get("mweaponvalue5", 0) if game_state else 0
-    mweaponvalue6 = game_state.get("mweaponvalue6", 0) if game_state else 0
-    charmvalue1 = game_state.get("charmvalue1", 0) if game_state else 0
-    charmvalue2 = game_state.get("charmvalue2", 0) if game_state else 0
-    charmvalue3 = game_state.get("charmvalue3", 0) if game_state else 0
-    charmvalue4 = game_state.get("charmvalue4", 0) if game_state else 0
-    charmvalue5 = game_state.get("charmvalue5", 0) if game_state else 0
-    charmvalue6 = game_state.get("charmvalue6", 0) if game_state else 0
-    spellvalue1 = game_state.get("spellvalue1", 0) if game_state else 0
-    spellvalue2 = game_state.get("spellvalue2", 0) if game_state else 0
-    spellvalue3 = game_state.get("spellvalue3", 0) if game_state else 0
-    spellvalue4 = game_state.get("spellvalue4", 0) if game_state else 0
-    spellvalue5 = game_state.get("spellvalue5", 0) if game_state else 0
-    spellvalue6 = game_state.get("spellvalue6", 0) if game_state else 0  
+    if game_state is not None:
+        player_stats.update(game_state.get("player_stats", {}))
+        item_values.update(game_state.get("item_values", {}))
     town()
 
+def temple():
+    clear()
+    print("The priestess asks if you'd like your deeds recorded on the holy register.")
+    print("Choose a file to save the game (1-3) or press enter to exit.")
+    savegameslot = input()
+    if savegameslot in ["1", "2", "3"]:
+        game_state = {
+            "player_stats": player_stats,
+            "item_values": item_values,
+        }
+        save_game(game_state, savegameslot)
+    else:
+        print("'My services are always here if you should ever need them,' the priestess tells you.\n")
+        input()
+    town()
+    
 def gamestart():
     global savegameslot
     clear()
@@ -305,7 +203,7 @@ def gamestart():
     if choice == "l" or choice == "load" or choice == "L":
         clear()
         print("""Choose a game file to load.
-        
+
 Save Game (1)
 
 Save Game (2)
@@ -315,23 +213,19 @@ Save Game (3)
 """)
         savegameslot = input()
         state = load_game()
-        if state:
+        if state is not None:
             filemenu(state)
         else:
             print("Error loading game!\n")
             input()
             gamestart()
     elif choice == "n" or choice == "N" or choice == "new":
-        rolldice()
+        rolldice()  # or any valid function call to start a new game
     else:
         gamestart()
     
 #this begins character creation and sets character's stats
 def rolldice(): 
-    global attack
-    global defense
-    global agility
-    global magic
     for i in range(0, 5000):
         clear()
         die1 = randint(1, 6)
@@ -361,169 +255,145 @@ Magic:    | {die4} |
 """)
     choice = input("Would you like to keep this character? y/n\n\n")
     if choice == "y" or choice == "yes":
-        attack = die1
-        defense = die2
-        agility = die3
-        magic = die4
+        player_stats["attack"] = die1
+        player_stats["defense"] = die2
+        player_stats["agility"] = die3
+        player_stats["magic"] = die4
         chooseheritage()
     if choice == "n" or choice == "no":
         rolldice()
 
 # the player may now choose a heritage which gives certain bonuses and penalties
 def chooseheritage():
-    global attack
-    global defense
-    global agility
-    global magic
-    global heritage
     clear()
     print(f"""
 Please choose a heritage.          (human) Humans are good at many different things.
 
 
            ---            
-Attack:   | {attack} |                    (orc) Orcs are very strong and make fierce warriors.
+Attack:   | {player_stats["attack"]} |                    (orc) Orcs are very strong and make fierce warriors.
            ---
            
            ---            
-Defense:  | {defense} |                    (dwarf) Dwarves are strong, sturdy folk.
+Defense:  | {player_stats["defense"]} |                    (dwarf) Dwarves are strong, sturdy folk.
            ---
 
            ---            
-Agility:  | {agility} |                    (goblin) Goblins are sneaky and make good rogues.
+Agility:  | {player_stats["agility"]} |                    (goblin) Goblins are sneaky and make good rogues.
            ---
            
            ---            
-Magic:    | {magic} |                    (elf) Elves are nimble and gifted with magic.
+Magic:    | {player_stats["magic"]} |                    (elf) Elves are nimble and gifted with magic.
            ---
 
 """)    
     playerchoice = input("Type the heritage of your choice.\n\n")
     if playerchoice == "orc" or playerchoice == "o":
-        heritage = "orc"
-        attack += 2
-        magic -= 1
+        player_stats["heritage"] = "orc"
+        player_stats["attack"] += 2
+        player_stats["magic"] -= 1
     elif playerchoice == "dwarf" or playerchoice == "d":
-        heritage = "dwarf"
-        attack += 1
-        defense += 1
-        agility -= 1
+        player_stats["heritage"] = "dwarf"
+        player_stats["attack"] += 1
+        player_stats["defense"] += 1
+        player_stats["agility"] -= 1
     elif playerchoice == "goblin" or playerchoice == "g":
-        heritage = "goblin"
-        agility += 2
-        attack -= 1
+        player_stats["heritage"] = "goblin"
+        player_stats["agility"] += 2
+        player_stats["attack"] -= 1
     elif playerchoice == "elf" or playerchoice == "e":
-        heritage = "elf"
-        agility += 1
-        magic += 1
-        defense -= 1
+        player_stats["heritage"] = "elf"
+        player_stats["agility"] += 1
+        player_stats["magic"] += 1
+        player_stats["defense"] -= 1        
     elif playerchoice == "debug6":
-        heritage = "cheater"
-        attack = 6
-        defense = 6
-        agility = 6
-        magic = 6        
-    elif playerchoice == "debug9":
-        heritage = "big fat cheater"
-        attack = 9
-        defense = 9
-        agility = 9
-        magic = 9
+        player_stats["heritage"] = "cheater"
+        player_stats["attack"] = 6
+        player_stats["defense"] = 6
+        player_stats["agility"] = 6    
+        player_stats["magic"] = 6        
     else:
-        heritage = "human"
+        player_stats["heritage"] = "human"
         for x in range(2):
             humanbonus = randint(1,4)
             if humanbonus == 1:
-                attack += 1
+                player_stats["attack"] += 1
             elif humanbonus == 2:
-                defense += 1
+                player_stats["defense"] += 1
             elif humanbonus == 3:
-                agility += 1
+                player_stats["agility"] += 1
             else:
-                magic += 1        
+                player_stats["magic"] += 1        
     chooseclass()   
     
 # now the player chooses a class, which further increases stats and grants starting equipment, level-ups, and special abilities
 def chooseclass():
-    global attack
-    global defense
-    global agility
-    global magic
-    global heritage
-    global playerclass
     clear()
     print(f"""
 Now choose a class.                (warrior) Warriors are the best at fighting.
 
 
            ---            
-Attack:   | {attack} |                    (rogue) Rogues are very stealthy.
+Attack:   | {player_stats["attack"]} |                    (rogue) Rogues are very stealthy.
            ---
            
            ---            
-Defense:  | {defense} |                    (mage) Mages are masters of magic.
+Defense:  | {player_stats["defense"]} |                    (mage) Mages are masters of magic.
            ---
 
            ---            
-Agility:  | {agility} |                    (cleric) Clerics are tough magic users.
+Agility:  | {player_stats["agility"]} |                    (cleric) Clerics are tough magic users.
            ---
            
            ---            
-Magic:    | {magic} |                    (bard) Bards are knowledgable about many things.
+Magic:    | {player_stats["magic"]} |                    (bard) Bards are knowledgable about many things.
            ---
 
 """)    
     playerchoice = input("Type the class of your choice.\n\n")
-    if playerchoice == "warrior" or playerchoice == "w":
-        playerclass = "warrior"
-        attack += 1
-        defense += 1
-    elif playerchoice == "rogue" or playerchoice == "r":
-        playerclass = "rogue"
-        attack += 1
-        agility += 1
+    if playerchoice == "rogue" or playerchoice == "r":
+        player_stats["playerclass"] = "rogue"
+        player_stats["attack"] += 1
+        player_stats["agility"] += 1
     elif playerchoice == "mage" or playerchoice == "m":
-        playerclass = "mage"
-        magic += 2
+        player_stats["playerclass"] = "mage"
+        player_stats["magic"] += 2
     elif playerchoice == "cleric" or playerchoice == "c":
-        playerclass = "cleric"
-        defense += 1
-        magic += 1    
+        player_stats["playerclass"] = "cleric"
+        player_stats["defense"] += 1
+        player_stats["magic"] += 1  
     elif playerchoice == "bard" or playerchoice == "b":
-        playerclass = "bard"
-        agility += 1
-        magic += 1   
+        player_stats["playerclass"] = "bard"
+        player_stats["agility"] += 1
+        player_stats["magic"] += 1
     else:
-        playerclass = "peasant"
+        player_stats["playerclass"] = "warrior"
+        player_stats["attack"] += 1
+        player_stats["defense"] += 1
     confirmcharacter()
         
 # the player now chooses to keep or discard the character they rolled
 def confirmcharacter():
-    global attack
-    global defense
-    global agility
-    global magic
-    global heritage
-    global playerclass
     clear()
     print(f"""
-You are a/an {heritage} {playerclass}.          
+Heritage: {player_stats["heritage"]} 
+Class: {player_stats["playerclass"]}          
 
 
            ---            
-Attack:   | {attack} |                    
+Attack:   | {player_stats["attack"]} |                    
            ---
            
            ---            
-Defense:  | {defense} |                    
+Defense:  | {player_stats["defense"]} |                    
            ---
 
            ---            
-Agility:  | {agility} |                    
+Agility:  | {player_stats["agility"]} |                    
            ---
            
            ---            
-Magic:    | {magic} |                    
+Magic:    | {player_stats["magic"]} |                    
            ---
 
 """)    
@@ -535,121 +405,80 @@ Magic:    | {magic} |
 
 # the player now names their character
 def namecharacter():
-    global attack
-    global defense
-    global agility
-    global magic
-    global heritage
-    global playerclass
-    global playername
-    global classlevel
     clear()
     playername = input("\nName your character.\n\n")
+    player_stats["playername"] = playername
     clear()
     print(f"""
-You are {playername} the {classlevel}-level {heritage} {playerclass}.          
+Name: {player_stats["playername"]}
+Heritage: {player_stats["heritage"]} 
+Class: {player_stats["playerclass"]}          
 
 
            ---            
-Attack:   | {attack} |                    
+Attack:   | {player_stats["attack"]} |                    
            ---
            
            ---            
-Defense:  | {defense} |                    
+Defense:  | {player_stats["defense"]} |                    
            ---
 
            ---            
-Agility:  | {agility} |                    
+Agility:  | {player_stats["agility"]} |                    
            ---
            
            ---            
-Magic:    | {magic} |                    
+Magic:    | {player_stats["magic"]} |                    
            ---
 
-Welcome! And good luck! {playername}!""")        
+Welcome! And good luck! """)        
         
     finalizecharacter()  
 
 # this function mostly serves to finalize the character before the game begins
 def finalizecharacter():
-    global attack
-    global defense
-    global agility
-    global magic
-    global heritage
-    global playerclass
-    global playername
-    global classlevel
-    global effectivelevel
-    global weaponname
-    global weapon
-    global armorname
-    global armor
-    global magicweaponname
-    global magicweapon
-    global charmname
-    global charm
-    global spellslot1
-    global spellslot2
-    global spellslot3
-    global spellslot4
-    global health
-    if playerclass == "warrior":
-        weaponname = "short sword"
-        weapon = 2
-    elif playerclass == "rogue":
-        weaponname = "short sword"
-        weapon = 2
-    elif playerclass == "mage":
-        magicweaponname = "training wand"
-        magicweapon = 1
-        spellslot1 = "~blaze~"
-    elif playerclass == "cleric":
-        charmname = "holy symbol"
-        charm = 2
-        spellslot1 = "restore"
-    elif playerclass == "bard":
-        magicweaponname = "lute"
-        magicweapon = 1
-        spellslot1 = "~sleep~"
+    if player_stats["playerclass"] == "warrior":
+        player_stats["weaponname"] = "short sword"
+        player_stats["weapon"] = 2
+    elif player_stats["playerclass"] == "rogue":
+        player_stats["weaponname"] = "short sword"
+        player_stats["weapon"] = 2
+    elif player_stats["playerclass"] == "mage":
+        player_stats["magicweaponname"] = "training wand"
+        player_stats["magicweapon"] = 1
+        player_stats["spellslot1"] = "~blaze~"
+    elif player_stats["playerclass"] == "cleric":
+        player_stats["charmname"] = "holy symbol"
+        player_stats["charm"] = 2
+        player_stats["spellslot1"] = "restore"
+    elif player_stats["playerclass"] == "bard":
+        player_stats["magicweaponname"] = "lute"
+        player_stats["magicweapon"] = 1
+        player_stats["spellslot1"] = "~sleep~"
     else:
-        weaponname = "stick"
-        weapon = 1
-    health = 100
-    totalstats = attack + defense + agility + magic
-    effectivelevel = totalstats // 2
+        player_stats["weaponname"] = "stick"
+        player_stats["weapon"] = 1
+        # this code should never kick in so it is only for debugging
+    player_stats["health"] = 100
+    totalstats = player_stats["attack"] + player_stats["defense"] + player_stats["agility"] + player_stats["magic"]
+    player_stats["effectivelevel"] = totalstats // 2
     town()
 
 def resolveactions():
-    global magicmenu
-    global incombat
-    if magicmenu:
+    global combat_variables["magicmenu"]
+    global combat_variables["incombat"]
+    if combat_variables["magicmenu"]:
         battlemagic()
-    elif incombat:
+    elif combat_variables["incombat"]:
         combat()
     
-def town():
-    global health
-    global enemyname
-    global enemybreath
-    global enemycancast
-    global enemyattack 
-    global enemydefense 
-    global enemyagility 
-    global enemymagic 
-    global enemyweapon 
-    global enemyarmor 
-    global enemymagicweapon
-    global enemycharm
-    global enemyhealth 
-    global enemylevel 
-    global xpdrop    
-    global firstturn
+def town():   
+    global combat_variables["firstturn"]
     global keylogging    
-    global gold
-    firstturn = True
+
+    combat_variables["firstturn"] = True
     keylogging = False
-    health = 100
+    player_stats["health"] = 100
     clear()
     print("""You are in the city of Mirstone. What would you like to do?
     
@@ -672,78 +501,29 @@ def town():
         arena()
     elif choice == "4":
         stats()
-
-def temple():
-    global savegameslot
-    clear()
-    print("""The priestess asks you if you would like your deeds recorded on the holy register.
-
-Choose a file:
-
-
-Save Game (1)
-
-Save Game (2)
-
-Save Game (3)
-
-
-(or press enter to exit)
-
-""")
-    savegameslot = input()
-    if savegameslot == "1" or savegameslot == "2" or savegameslot == "3":
-        game_state = {"attack": attack, "defense": defense, "agility": agility, "magic": magic, "heritage": heritage, "playerclass": playerclass, "playername": playername, "classlevel": classlevel, "effectivelevel": effectivelevel, "weaponname": weaponname, "weapon": weapon, "armorname": armorname, "armor": armor, "magicweaponname": magicweaponname, "magicweapon": magicweapon, "charmname": charmname, "charm": charm, "spellslot1": spellslot1, "spellslot2": spellslot2, "spellslot3": spellslot3, "spellslot4": spellslot4, "experience": experience, "freshweapons": freshweapons, "fresharmor": fresharmor, "freshmagicweapons": freshmagicweapons, "freshcharms": freshcharms, "freshspells": freshspells, "gold": gold, "weaponvalue1": weaponvalue1, "weaponvalue2": weaponvalue2, "weaponvalue3": weaponvalue3, "weaponvalue4": weaponvalue4, "weaponvalue5": weaponvalue5, "weaponvalue6": weaponvalue6, "armorvalue1": armorvalue1, "armorvalue2": armorvalue2, "armorvalue3": armorvalue3, "armorvalue4": armorvalue4, "armorvalue5": armorvalue5, "armorvalue6": armorvalue6, "mweaponvalue1": mweaponvalue1, "mweaponvalue2": mweaponvalue2, "mweaponvalue3": mweaponvalue3, "mweaponvalue4": mweaponvalue4, "mweaponvalue5": mweaponvalue5, "mweaponvalue": mweaponvalue6, "charmvalue1": charmvalue1, "charmvalue2": charmvalue2, "charmvalue3": charmvalue3, "charmvalue4": charmvalue4, "charmvalue5": charmvalue5, "charmvalue6": charmvalue6, "spellvalue1": spellvalue1, "spellvalue2": spellvalue2, "spellvalue3": spellvalue3, "spellvalue4": spellvalue4, "spellvalue5": spellvalue5, "spellvalue6": spellvalue6}
-        save_game(game_state)
-    else:
-        print("'My services are always here if you should ever need them,' the priestess tells you.\n")
-        input()        
-    town()
         
-def stats():
-    global attack
-    global defense
-    global agility
-    global magic
-    global heritage
-    global playerclass
-    global classlevel
-    global playername
-    global weaponname
-    global weapon
-    global armorname
-    global armor
-    global magicweaponname
-    global magicweapon
-    global charmname
-    global charm
-    global spellslot1
-    global spellslot2
-    global spellslot3
-    global spellslot4
-    global experience
-    global gold     
+def stats():    
     clear()
-    print(f"""Name:          {playername}
-Heritage:      {heritage}
-Class:         {playerclass}
-Level:         {classlevel} 
-Experience:    {experience}
-Gold:          {gold}
+    print(f"""Name:          {player_stats["playername"]}
+Heritage:      {player_stats["heritage"]}
+Class:         {player_stats["playerclass"]}
+Level:         {player_stats["classlevel"]} 
+Experience:    {player_stats["experience"]}
+Gold:          {player_stats["gold"]}
 
-Attack:        {attack}
-Defense:       {defense}
-Agility:       {agility}
-Magic:         {magic}
+Attack:        {player_stats["attack"]}
+Defense:       {player_stats["defense"]}
+Agility:       {player_stats["agility"]}
+Magic:         {player_stats["magic"]}
 
-Weapon:        {weaponname} ({weapon})
-Armor:         {armorname} ({armor})
-Magic Focus:   {magicweaponname} ({magicweapon})
-Magic Charm:   {charmname} ({charm})
+Weapon:        {player_stats["weaponname"]} ({player_stats["weapon"]})
+Armor:         {player_stats["armorname"]} ({player_stats["armor"]})
+Magic Focus:   {player_stats["magicweaponname"]} ({player_stats["magicweapon"]})
+Magic Charm:   {player_stats["charmname"]} ({player_stats["charm"]})
 
 Spells known:  
-{spellslot1} {spellslot2} 
-{spellslot3} {spellslot4}
+{player_stats["spellslot1"]} {player_stats["spellslot2"]} 
+{player_stats["spellslot3"]} {player_stats["spellslot4"]}
 
 Press (enter) to continue""")  
     input()
@@ -779,21 +559,21 @@ def arena():
         town()
     
 def copperleague():
-    global enemyname 
-    global enemybreath 
-    global enemycancast 
-    global enemyattack 
-    global enemydefense 
-    global enemyagility 
-    global enemymagic 
-    global enemyweapon 
-    global enemyarmor 
-    global enemymagicweapon 
-    global enemycharm 
-    global enemyhealth 
-    global enemylevel 
-    global xpdrop 
-    global golddrop 
+    global enemy_stats["enemyname"] 
+    global enemy_stats["enemybreath"] 
+    global enemy_stats["enemycancast"] 
+    global enemy_stats["enemyattack"] 
+    global enemy_stats["enemydefense"] 
+    global enemy_stats["enemyagility"] 
+    global enemy_stats["enemymagic"] 
+    global enemy_stats["enemyweapon"] 
+    global enemy_stats["enemyarmor"] 
+    global enemy_stats["enemymagic"]weapon 
+    global enemy_stats["enemycharm"] 
+    global enemy_stats["enemyhealth"] 
+    global enemy_stats["enemylevel"] 
+    global enemy_stats["xpdrop"] 
+    global enemy_stats["golddrop"] 
     clear()
     print("""The Copper League is where most amateurs begin their fighting career. The easiest enemies can be found here.
     
@@ -815,100 +595,100 @@ def copperleague():
     
     choice = input()
     if choice == "1":
-        enemyname = "giant bat"
-        enemyattack = 1
-        enemydefense = 1
-        enemyagility = 3
-        enemymagic = 1
-        enemyweapon = 1
-        enemyarmor = 1
-        enemymagicweapon = 0
-        enemycharm = 1
-        enemyhealth = 100
-        enemylevel = 3
-        xpdrop = 30
-        golddrop = 3
+        enemy_stats["enemyname"] = "giant bat"
+        enemy_stats["enemyattack"] = 1
+        enemy_stats["enemydefense"] = 1
+        enemy_stats["enemyagility"] = 3
+        enemy_stats["enemymagic"] = 1
+        enemy_stats["enemyweapon"] = 1
+        enemy_stats["enemyarmor"] = 1
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 1
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 3
+        enemy_stats["xpdrop"] = 30
+        enemy_stats["golddrop"] = 3
     elif choice == "2":
-        enemyname = "giant rat"
-        enemyattack = 2
-        enemydefense = 2
-        enemyagility = 3
-        enemymagic = 1
-        enemyweapon = 1
-        enemyarmor = 1
-        enemymagicweapon = 0
-        enemycharm = 1
-        enemyhealth = 100
-        enemylevel = 4
-        xpdrop = 40 
-        golddrop = 4
+        enemy_stats["enemyname"] = "giant rat"
+        enemy_stats["enemyattack"] = 2
+        enemy_stats["enemydefense"] = 2
+        enemy_stats["enemyagility"] = 3
+        enemy_stats["enemymagic"] = 1
+        enemy_stats["enemyweapon"] = 1
+        enemy_stats["enemyarmor"] = 1
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 1
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 4
+        enemy_stats["xpdrop"] = 40 
+        enemy_stats["golddrop"] = 4
     elif choice == "3":
-        enemyname = "kobold"
-        enemyattack = 2
-        enemydefense = 3
-        enemyagility = 3
-        enemymagic = 2
-        enemyweapon = 2
-        enemyarmor = 2
-        enemymagicweapon = 0
-        enemycharm = 2
-        enemyhealth = 100
-        enemylevel = 5
-        xpdrop = 50
-        golddrop = 10
+        enemy_stats["enemyname"] = "kobold"
+        enemy_stats["enemyattack"] = 2
+        enemy_stats["enemydefense"] = 3
+        enemy_stats["enemyagility"] = 3
+        enemy_stats["enemymagic"] = 2
+        enemy_stats["enemyweapon"] = 2
+        enemy_stats["enemyarmor"] = 2
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 2
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 5
+        enemy_stats["xpdrop"] = 50
+        enemy_stats["golddrop"] = 10
     elif choice == "4":
-        enemyname = "goblin"
-        enemyattack = 3
-        enemydefense = 3
-        enemyagility = 3
-        enemymagic = 3
-        enemyweapon = 2
-        enemyarmor = 2
-        enemymagicweapon = 0
-        enemycharm = 2
-        enemyhealth = 100
-        enemylevel = 6
-        xpdrop = 60
-        golddrop = 12
+        enemy_stats["enemyname"] = "goblin"
+        enemy_stats["enemyattack"] = 3
+        enemy_stats["enemydefense"] = 3
+        enemy_stats["enemyagility"] = 3
+        enemy_stats["enemymagic"] = 3
+        enemy_stats["enemyweapon"] = 2
+        enemy_stats["enemyarmor"] = 2
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 2
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 6
+        enemy_stats["xpdrop"] = 60
+        enemy_stats["golddrop"] = 12
     elif choice == "5":
-        enemyname = "orc"
-        enemyattack = 4
-        enemydefense = 4
-        enemyagility = 3
-        enemymagic = 3
-        enemyweapon = 4
-        enemyarmor = 4
-        enemymagicweapon = 0
-        enemycharm = 4
-        enemyhealth = 100
-        enemylevel = 7
-        xpdrop = 70
-        golddrop = 56
+        enemy_stats["enemyname"] = "orc"
+        enemy_stats["enemyattack"] = 4
+        enemy_stats["enemydefense"] = 4
+        enemy_stats["enemyagility"] = 3
+        enemy_stats["enemymagic"] = 3
+        enemy_stats["enemyweapon"] = 4
+        enemy_stats["enemyarmor"] = 4
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 4
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 7
+        enemy_stats["xpdrop"] = 70
+        enemy_stats["golddrop"] = 56
     elif choice == "6":
         town()
     else:
         print("\nPlease make a valid choice!\n")
         input()
         copperleague()
-    firstturn = True
+    combat_variables["firstturn"] = True
     combat()        
         
 def silverleague():
-    global enemyname 
-    global enemybreath 
-    global enemycancast 
-    global enemyattack 
-    global enemydefense 
-    global enemyagility 
-    global enemymagic 
-    global enemyweapon 
-    global enemyarmor 
-    global enemymagicweapon 
-    global enemycharm 
-    global enemyhealth 
-    global enemylevel 
-    global xpdrop 
-    global golddrop
+    global enemy_stats["enemyname"] 
+    global enemy_stats["enemybreath"] 
+    global enemy_stats["enemycancast"] 
+    global enemy_stats["enemyattack"] 
+    global enemy_stats["enemydefense"] 
+    global enemy_stats["enemyagility"] 
+    global enemy_stats["enemymagic"] 
+    global enemy_stats["enemyweapon"] 
+    global enemy_stats["enemyarmor"] 
+    global enemy_stats["enemymagic"]weapon 
+    global enemy_stats["enemycharm"] 
+    global enemy_stats["enemyhealth"] 
+    global enemy_stats["enemylevel"] 
+    global enemy_stats["xpdrop"] 
+    global enemy_stats["golddrop"]
     clear()
     print("""The Silver League is for veterans who have started to earn a reputation in the arena. 
 The enemies here are a little more difficult than those found in the Copper League.
@@ -930,102 +710,102 @@ The enemies here are a little more difficult than those found in the Copper Leag
     """)   
     choice = input()        
     if choice == "1":
-        enemyname = "slime"
-        enemyattack = 6
-        enemydefense = 6
-        enemyagility = 2
-        enemymagic = 2
-        enemyweapon = 4
-        enemyarmor = 4
-        enemymagicweapon = 0
-        enemycharm = 4
-        enemyhealth = 100
-        enemylevel = 8
-        xpdrop = 80
-        golddrop = 64
+        enemy_stats["enemyname"] = "slime"
+        enemy_stats["enemyattack"] = 6
+        enemy_stats["enemydefense"] = 6
+        enemy_stats["enemyagility"] = 2
+        enemy_stats["enemymagic"] = 2
+        enemy_stats["enemyweapon"] = 4
+        enemy_stats["enemyarmor"] = 4
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 4
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 8
+        enemy_stats["xpdrop"] = 80
+        enemy_stats["golddrop"] = 64
     elif choice == "2":
-        enemyname = "dark acolyte"
-        enemycancast = True
-        enemyattack = 3
-        enemydefense = 3
-        enemyagility = 6
-        enemymagic = 6
-        enemyweapon = 4
-        enemyarmor = 4
-        enemymagicweapon = 4
-        enemycharm = 4
-        enemyhealth = 100
-        enemylevel = 9
-        xpdrop = 90
-        golddrop = 72
+        enemy_stats["enemyname"] = "dark acolyte"
+        enemy_stats["enemycancast"] = True
+        enemy_stats["enemyattack"] = 3
+        enemy_stats["enemydefense"] = 3
+        enemy_stats["enemyagility"] = 6
+        enemy_stats["enemymagic"] = 6
+        enemy_stats["enemyweapon"] = 4
+        enemy_stats["enemyarmor"] = 4
+        enemy_stats["enemymagic"]weapon = 4
+        enemy_stats["enemycharm"] = 4
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 9
+        enemy_stats["xpdrop"] = 90
+        enemy_stats["golddrop"] = 72
     elif choice == "3":
-        enemyname = "ogre"
-        enemyattack = 9
-        enemydefense = 9
-        enemyagility = 1
-        enemymagic = 1
-        enemyweapon = 4
-        enemyarmor = 4
-        enemymagicweapon = 0
-        enemycharm = 4
-        enemyhealth = 100
-        enemylevel = 10
-        xpdrop = 100
-        golddrop = 80
+        enemy_stats["enemyname"] = "ogre"
+        enemy_stats["enemyattack"] = 9
+        enemy_stats["enemydefense"] = 9
+        enemy_stats["enemyagility"] = 1
+        enemy_stats["enemymagic"] = 1
+        enemy_stats["enemyweapon"] = 4
+        enemy_stats["enemyarmor"] = 4
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 4
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 10
+        enemy_stats["xpdrop"] = 100
+        enemy_stats["golddrop"] = 80
     elif choice == "4":
-        enemyname = "hellhound"
-        enemybreath = True
-        enemyattack = 6
-        enemydefense = 5
-        enemyagility = 6
-        enemymagic = 5
-        enemyweapon = 4
-        enemyarmor = 4
-        enemymagicweapon = 0
-        enemycharm = 4
-        enemyhealth = 100
-        enemylevel = 11
-        xpdrop = 110
-        golddrop = 88
+        enemy_stats["enemyname"] = "hellhound"
+        enemy_stats["enemybreath"] = True
+        enemy_stats["enemyattack"] = 6
+        enemy_stats["enemydefense"] = 5
+        enemy_stats["enemyagility"] = 6
+        enemy_stats["enemymagic"] = 5
+        enemy_stats["enemyweapon"] = 4
+        enemy_stats["enemyarmor"] = 4
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 4
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 11
+        enemy_stats["xpdrop"] = 110
+        enemy_stats["golddrop"] = 88
     elif choice == "5":
-        enemyname = "dark dwarf"
-        enemyattack = 8
-        enemydefense = 8
-        enemyagility = 4
-        enemymagic = 4
-        enemyweapon = 6
-        enemyarmor = 6
-        enemymagicweapon = 0
-        enemycharm = 6
-        enemyhealth = 100
-        enemylevel = 12
-        xpdrop = 120
-        golddrop = 216
+        enemy_stats["enemyname"] = "dark dwarf"
+        enemy_stats["enemyattack"] = 8
+        enemy_stats["enemydefense"] = 8
+        enemy_stats["enemyagility"] = 4
+        enemy_stats["enemymagic"] = 4
+        enemy_stats["enemyweapon"] = 6
+        enemy_stats["enemyarmor"] = 6
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 6
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 12
+        enemy_stats["xpdrop"] = 120
+        enemy_stats["golddrop"] = 216
     elif choice == "6":
         town()
     else:
         print("\nPlease make a valid choice!\n")
         input()
         silverleague()
-    firstturn = True
+    combat_variables["firstturn"] = True
     combat()
 
 def goldleague():
-    global enemyname 
-    global enemybreath 
-    global enemycancast 
-    global enemyattack 
-    global enemydefense 
-    global enemyagility 
-    global enemymagic 
-    global enemyweapon 
-    global enemyarmor 
-    global enemymagicweapon 
-    global enemycharm 
-    global enemyhealth 
-    global enemylevel 
-    global xpdrop 
-    global golddrop
+    global enemy_stats["enemyname"] 
+    global enemy_stats["enemybreath"] 
+    global enemy_stats["enemycancast"] 
+    global enemy_stats["enemyattack"] 
+    global enemy_stats["enemydefense"] 
+    global enemy_stats["enemyagility"] 
+    global enemy_stats["enemymagic"] 
+    global enemy_stats["enemyweapon"] 
+    global enemy_stats["enemyarmor"] 
+    global enemy_stats["enemymagic"]weapon 
+    global enemy_stats["enemycharm"] 
+    global enemy_stats["enemyhealth"] 
+    global enemy_stats["enemylevel"] 
+    global enemy_stats["xpdrop"] 
+    global enemy_stats["golddrop"]
     clear()
     print("""The Gold League is for champions who are cunning enough or strong enough to survive the lower
 leagues. It is a truly dangerous place to compete.
@@ -1047,103 +827,103 @@ leagues. It is a truly dangerous place to compete.
     """)   
     choice = input()        
     if choice == "1":
-        enemyname = "dark elf"
-        enemyattack = 6
-        enemydefense = 6
-        enemyagility = 8
-        enemymagic = 6
-        enemyweapon = 6
-        enemyarmor = 6
-        enemymagicweapon = 6
-        enemycharm = 6
-        enemyhealth = 100
-        enemylevel = 13
-        xpdrop = 130
-        golddrop = 234
+        enemy_stats["enemyname"] = "dark elf"
+        enemy_stats["enemyattack"] = 6
+        enemy_stats["enemydefense"] = 6
+        enemy_stats["enemyagility"] = 8
+        enemy_stats["enemymagic"] = 6
+        enemy_stats["enemyweapon"] = 6
+        enemy_stats["enemyarmor"] = 6
+        enemy_stats["enemymagic"]weapon = 6
+        enemy_stats["enemycharm"] = 6
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 13
+        enemy_stats["xpdrop"] = 130
+        enemy_stats["golddrop"] = 234
     elif choice == "2":
-        enemyname = "dark mage"
-        enemycancast = True
-        enemyattack = 4
-        enemydefense = 5
-        enemyagility = 9
-        enemymagic = 10
-        enemyweapon = 6
-        enemyarmor = 6
-        enemymagicweapon = 6
-        enemycharm = 6
-        enemyhealth = 100
-        enemylevel = 14
-        xpdrop = 140
-        golddrop = 252
+        enemy_stats["enemyname"] = "dark mage"
+        enemy_stats["enemycancast"] = True
+        enemy_stats["enemyattack"] = 4
+        enemy_stats["enemydefense"] = 5
+        enemy_stats["enemyagility"] = 9
+        enemy_stats["enemymagic"] = 10
+        enemy_stats["enemyweapon"] = 6
+        enemy_stats["enemyarmor"] = 6
+        enemy_stats["enemymagic"]weapon = 6
+        enemy_stats["enemycharm"] = 6
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 14
+        enemy_stats["xpdrop"] = 140
+        enemy_stats["golddrop"] = 252
     elif choice == "3":
-        enemyname = "chimera"
-        enemybreath = True
-        enemyattack = 8
-        enemydefense = 8
-        enemyagility = 7
-        enemymagic = 7
-        enemyweapon = 6
-        enemyarmor = 6
-        enemymagicweapon = 6
-        enemycharm = 6
-        enemyhealth = 100
-        enemylevel = 15
-        xpdrop = 150
-        golddrop = 270
+        enemy_stats["enemyname"] = "chimera"
+        enemy_stats["enemybreath"] = True
+        enemy_stats["enemyattack"] = 8
+        enemy_stats["enemydefense"] = 8
+        enemy_stats["enemyagility"] = 7
+        enemy_stats["enemymagic"] = 7
+        enemy_stats["enemyweapon"] = 6
+        enemy_stats["enemyarmor"] = 6
+        enemy_stats["enemymagic"]weapon = 6
+        enemy_stats["enemycharm"] = 6
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 15
+        enemy_stats["xpdrop"] = 150
+        enemy_stats["golddrop"] = 270
     elif choice == "4":
-        enemyname = "wraith"
-        enemyattack = 9
-        enemydefense = 9
-        enemyagility = 8
-        enemymagic = 6
-        enemyweapon = 6
-        enemyarmor = 6
-        enemymagicweapon = 6
-        enemycharm = 6
-        enemyhealth = 100
-        enemylevel = 16
-        xpdrop = 160
-        golddrop = 288
+        enemy_stats["enemyname"] = "wraith"
+        enemy_stats["enemyattack"] = 9
+        enemy_stats["enemydefense"] = 9
+        enemy_stats["enemyagility"] = 8
+        enemy_stats["enemymagic"] = 6
+        enemy_stats["enemyweapon"] = 6
+        enemy_stats["enemyarmor"] = 6
+        enemy_stats["enemymagic"]weapon = 6
+        enemy_stats["enemycharm"] = 6
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 16
+        enemy_stats["xpdrop"] = 160
+        enemy_stats["golddrop"] = 288
     elif choice == "5":
-        enemyname = "giant"
-        enemyattack = 11
-        enemydefense = 11
-        enemyagility = 6
-        enemymagic = 6
-        enemyweapon = 8
-        enemyarmor = 8
-        enemymagicweapon = 0
-        enemycharm = 8
-        enemyhealth = 100
-        enemylevel = 17
-        xpdrop = 170
-        golddrop = 680
+        enemy_stats["enemyname"] = "giant"
+        enemy_stats["enemyattack"] = 11
+        enemy_stats["enemydefense"] = 11
+        enemy_stats["enemyagility"] = 6
+        enemy_stats["enemymagic"] = 6
+        enemy_stats["enemyweapon"] = 8
+        enemy_stats["enemyarmor"] = 8
+        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemycharm"] = 8
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 17
+        enemy_stats["xpdrop"] = 170
+        enemy_stats["golddrop"] = 680
     elif choice == "6":
         town()
     else:
         print("\nPlease make a valid choice!\n")
         input()
         goldleague()
-    firstturn = True
+    combat_variables["firstturn"] = True
     combat()    
 
 def platinumleague():
-    global enemyname 
-    global enemybreath 
-    global enemycancast 
-    global enemycanheal
-    global enemyattack 
-    global enemydefense 
-    global enemyagility 
-    global enemymagic 
-    global enemyweapon 
-    global enemyarmor 
-    global enemymagicweapon 
-    global enemycharm 
-    global enemyhealth 
-    global enemylevel 
-    global xpdrop 
-    global golddrop
+    global enemy_stats["enemyname"] 
+    global enemy_stats["enemybreath"] 
+    global enemy_stats["enemycancast"] 
+    global enemy_stats["enemycanheal"]
+    global enemy_stats["enemyattack"] 
+    global enemy_stats["enemydefense"] 
+    global enemy_stats["enemyagility"] 
+    global enemy_stats["enemymagic"] 
+    global enemy_stats["enemyweapon"] 
+    global enemy_stats["enemyarmor"] 
+    global enemy_stats["enemymagic"]weapon 
+    global enemy_stats["enemycharm"] 
+    global enemy_stats["enemyhealth"] 
+    global enemy_stats["enemylevel"] 
+    global enemy_stats["xpdrop"] 
+    global enemy_stats["golddrop"]
     clear()
     print("""The Platinum League is for champions who are cunning enough or strong enough to survive the lower leagues. It is a truly dangerous place to compete.
     
@@ -1164,85 +944,85 @@ def platinumleague():
     """)   
     choice = input()        
     if choice == "1":
-        enemyname = "dark priest"
-        enemycanheal = True
-        enemyattack = 9
-        enemydefense = 9
-        enemyagility = 8
-        enemymagic = 10
-        enemyweapon = 8
-        enemyarmor = 8
-        enemymagicweapon = 8
-        enemycharm = 8
-        enemyhealth = 100
-        enemylevel = 18
-        xpdrop = 180
-        golddrop = 720
+        enemy_stats["enemyname"] = "dark priest"
+        enemy_stats["enemycanheal"] = True
+        enemy_stats["enemyattack"] = 9
+        enemy_stats["enemydefense"] = 9
+        enemy_stats["enemyagility"] = 8
+        enemy_stats["enemymagic"] = 10
+        enemy_stats["enemyweapon"] = 8
+        enemy_stats["enemyarmor"] = 8
+        enemy_stats["enemymagic"]weapon = 8
+        enemy_stats["enemycharm"] = 8
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 18
+        enemy_stats["xpdrop"] = 180
+        enemy_stats["golddrop"] = 720
     elif choice == "2":
-        enemyname = "vampire"
-        enemyattack = 9
-        enemydefense = 9
-        enemyagility = 10
-        enemymagic = 10
-        enemyweapon = 8
-        enemyarmor = 8
-        enemymagicweapon = 8
-        enemycharm = 8
-        enemyhealth = 100
-        enemylevel = 19
-        xpdrop = 190
-        golddrop = 760
+        enemy_stats["enemyname"] = "vampire"
+        enemy_stats["enemyattack"] = 9
+        enemy_stats["enemydefense"] = 9
+        enemy_stats["enemyagility"] = 10
+        enemy_stats["enemymagic"] = 10
+        enemy_stats["enemyweapon"] = 8
+        enemy_stats["enemyarmor"] = 8
+        enemy_stats["enemymagic"]weapon = 8
+        enemy_stats["enemycharm"] = 8
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 19
+        enemy_stats["xpdrop"] = 190
+        enemy_stats["golddrop"] = 760
     elif choice == "3":
-        enemyname = "death knight"
-        enemyattack = 11
-        enemydefense = 11
-        enemyagility = 8
-        enemymagic = 10
-        enemyweapon = 8
-        enemyarmor = 8
-        enemymagicweapon = 8
-        enemycharm = 8
-        enemyhealth = 100
-        enemylevel = 20
-        xpdrop = 200
-        golddrop = 800
+        enemy_stats["enemyname"] = "death knight"
+        enemy_stats["enemyattack"] = 11
+        enemy_stats["enemydefense"] = 11
+        enemy_stats["enemyagility"] = 8
+        enemy_stats["enemymagic"] = 10
+        enemy_stats["enemyweapon"] = 8
+        enemy_stats["enemyarmor"] = 8
+        enemy_stats["enemymagic"]weapon = 8
+        enemy_stats["enemycharm"] = 8
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 20
+        enemy_stats["xpdrop"] = 200
+        enemy_stats["golddrop"] = 800
     elif choice == "4":
-        enemyname = "demon"
-        enemycancast = True
-        enemyattack = 10
-        enemydefense = 10
-        enemyagility = 8
-        enemymagic = 12
-        enemyweapon = 8
-        enemyarmor = 8
-        enemymagicweapon = 8
-        enemycharm = 8
-        enemyhealth = 100
-        enemylevel = 21
-        xpdrop = 210
-        golddrop = 840
+        enemy_stats["enemyname"] = "demon"
+        enemy_stats["enemycancast"] = True
+        enemy_stats["enemyattack"] = 10
+        enemy_stats["enemydefense"] = 10
+        enemy_stats["enemyagility"] = 8
+        enemy_stats["enemymagic"] = 12
+        enemy_stats["enemyweapon"] = 8
+        enemy_stats["enemyarmor"] = 8
+        enemy_stats["enemymagic"]weapon = 8
+        enemy_stats["enemycharm"] = 8
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 21
+        enemy_stats["xpdrop"] = 210
+        enemy_stats["golddrop"] = 840
     elif choice == "5":
-        enemyname = "dragon"
-        enemybreath = True
-        enemyattack = 11
-        enemydefense = 11
-        enemyagility = 10
-        enemymagic = 10
-        enemyweapon = 10
-        enemyarmor = 10
-        enemymagicweapon = 10
-        enemycharm = 10
-        enemyhealth = 100
-        enemylevel = 22
-        xpdrop = 220
-        golddrop = 2200
+        enemy_stats["enemyname"] = "dragon"
+        enemy_stats["enemybreath"] = True
+        enemy_stats["enemyattack"] = 11
+        enemy_stats["enemydefense"] = 11
+        enemy_stats["enemyagility"] = 10
+        enemy_stats["enemymagic"] = 10
+        enemy_stats["enemyweapon"] = 10
+        enemy_stats["enemyarmor"] = 10
+        enemy_stats["enemymagic"]weapon = 10
+        enemy_stats["enemycharm"] = 10
+        enemy_stats["enemyhealth"] = 100
+        enemy_stats["enemylevel"] = 22
+        enemy_stats["xpdrop"] = 220
+        enemy_stats["golddrop"] = 2200
     elif choice == "6":
         town()
     else:
         print("\nPlease make a valid choice!\n")
         input()
         platinumleague()
-    firstturn = True
+    combat_variables["firstturn"] = True
     combat()        
     
 def shop():
@@ -1300,114 +1080,117 @@ def weaponshop():
     global playerclass
     clear()
 # players may get some many back when they sell their current weapon to purchase a new one
-    if weapon == 1:
-        resellvalue = 5
-    elif weapon == 2:
-        resellvalue = 25
-    elif weapon == 4:
-        resellvalue = 125
-    elif weapon == 6:
-        resellvalue = 750
-    elif weapon == 8:
-        resellvalue = 2250
-    elif weapon == 10:
-        resellvalue = 6000
-    elif weapon == 12:
-        resellvalue = 15000
+
+    if player_stats["weapon"] == 1:
+        shop_variables["resellvalue"] = 5
+    elif player_stats["weapon"] == 2:
+        shop_variables["resellvalue"] = 25
+    elif player_stats["weapon"] == 4:
+        shop_variables["resellvalue"] = 125
+    elif player_stats["weapon"] == 6:
+        shop_variables["resellvalue"] = 750
+    elif player_stats["weapon"] == 8:
+        shop_variables["resellvalue"] = 2250
+    elif player_stats["weapon"] == 10:
+        shop_variables["resellvalue"] = 6000
+    elif player_stats["weapon"] == 12:
+        shop_variables["resellvalue"] = 15000
     else:
-        resellvalue = 0
+        shop_variables["resellvalue"] = 0
 # players can actually trade in their old weapon to gain enough cash to buy the new weapon
-    totalassets = resellvalue + gold
-    resellitem = weaponname
+
+    shop_variables["totalassets"] = shop_variables["resellvalue"] = + player_stats["gold"]
+    shop_variables["resellitem"] = player_stats["weaponname"]
     print("What would you like to buy?\n")    
 # the first time the player visits the store and at each level that is a multiple of 4, the prices for each available weapon are randomized
-    if freshweapons:
-        freshweapons = False
-        weaponvalue1 = randint(5,10)
-        weaponvalue1 = weaponvalue1 * 5
-        if classlevel >= 4:
-            weaponvalue2 = randint(75,125)
-            weaponvalue2 = weaponvalue2 // 2
-            weaponvalue2 = weaponvalue2 * 5
-        if classlevel >= 8:
-            weaponvalue3 = randint(75,125)
-            weaponvalue3 = weaponvalue3 // 2
-            weaponvalue3 = weaponvalue3 * 15
-        if classlevel >= 12:            
-            weaponvalue4 = randint(75,125)
-            weaponvalue4 = weaponvalue4 // 2
-            weaponvalue4 = weaponvalue4 * 45
-        if classlevel >= 16:
-            weaponvalue5 = randint(75,125)
-            weaponvalue5 = weaponvalue5 // 2
-            weaponvalue5 = weaponvalue5 * 120
-        if classlevel >= 20:
-            weaponvalue6 = randint(75,125)
-            weaponvalue6 = weaponvalue6 // 2
-            weaponvalue6 = weaponvalue6 * 350
+
+    if player_stats["freshweapons"]:
+        player_stats["freshweapons"] = False
+        item_values["weaponvalue1"] = randint(5,10)
+        item_values["weaponvalue1"] = item_values["weaponvalue1"] * 5
+        if player_stats["classlevel"] >= 4:
+            item_values["weaponvalue2"] = randint(75,125)
+            item_values["weaponvalue2"] = item_values["weaponvalue2"] // 2
+            item_values["weaponvalue2"] = item_values["weaponvalue2"] * 5
+        if player_stats["classlevel"] >= 8:
+            item_values["weaponvalue3"] = randint(75,125)
+            item_values["weaponvalue3"] = item_values["weaponvalue3"] // 2
+            item_values["weaponvalue3"] = item_values["weaponvalue3"] * 15
+        if player_stats["classlevel"] >= 12:            
+            item_values["weaponvalue4"] = randint(75,125)
+            item_values["weaponvalue4"] = item_values["weaponvalue4"] // 2
+            item_values["weaponvalue4"] = item_values["weaponvalue4"] * 45
+        if player_stats["classlevel"] >= 16:
+            item_values["weaponvalue5"] = randint(75,125)
+            item_values["weaponvalue5"] = item_values["weaponvalue5"] // 2
+            item_values["weaponvalue5"] = item_values["weaponvalue5"] * 120
+        if player_stats["classlevel"] >= 20:
+            item_values["weaponvalue6"] = randint(75,125)
+            item_values["weaponvalue6"] = item_values["weaponvalue6"] // 2
+            item_values["weaponvalue6"] = item_values["weaponvalue6"] * 350
 # the default weapons
-    weaponslot1 = "short sword"
-    weaponslot2 = "long sword"    
-    weaponslot3 = "broad sword"
-    weaponslot4 = "great sword"
-    weaponslot5 = "mithril sword"
-    weaponslot6 = "rune blade"
+    player_stats["weaponslot1"] = "short sword"
+    player_stats["weaponslot2"] = "long sword"    
+    player_stats["weaponslot3"] = "broad sword"
+    player_stats["weaponslot4"] = "great sword"
+    player_stats["weaponslot5"] = "mithril sword"
+    player_stats["weaponslot6"] = "rune blade"
 # some classes have their weapons "re-skinned" to fit their style
-    if playerclass == "rogue":
-        weaponslot3 = "scimitar"
-        weaponslot4 = "twin-blade"
-        weaponslot5 = "ninja blade"
-    if playerclass == "bard" or playerclass == "mage":
-        weaponslot3 = "elven blade"
-        weaponslot4 = "ancient sword"
-    if playerclass == "cleric":
-        weaponslot1 = "mace"
-        weaponslot2 = "warhammer"
-        weaponslot3 = "flail"
-        weaponslot4 = "great hammer"
-        weaponslot5 = "mithril mace"
-        weaponslot6 = "lawbringer"        
+    if player_stats["playerclass"] == "rogue":
+        player_stats["weaponslot3"] = "scimitar"
+        player_stats["weaponslot4"] = "twin-blade"
+        player_stats["weaponslot5"] = "ninja blade"
+    if player_stats["playerclass"] == "bard" or player_stats["playerclass"] == "mage":
+        player_stats["weaponslot3"] = "elven blade"
+        player_stats["weaponslot4"] = "ancient sword"
+    if player_stats["playerclass"] == "cleric":
+        player_stats["weaponslot1"] = "mace"
+        player_stats["weaponslot2"] = "warhammer"
+        player_stats["weaponslot3"] = "flail"
+        player_stats["weaponslot4"] = "great hammer"
+        player_stats["weaponslot5"] = "mithril mace"
+        player_stats["weaponslot6"] = "lawbringer"        
 # the store displays the weapons that are currently available and how much they cost
-    print(f"1) {weaponslot1} {weaponvalue1} gold")
-    if classlevel >= 4:
-        print(f"2) {weaponslot2} {weaponvalue2} gold")
-    if classlevel >= 8:
-        print(f"3) {weaponslot3} {weaponvalue3} gold")
-    if classlevel >= 12:
-        print(f"4) {weaponslot4} {weaponvalue4} gold")
-    if classlevel >= 16:
-        print(f"5) {weaponslot5} {weaponvalue5} gold")
-    if classlevel >= 20:
-        print(f"6) {weaponslot6} {weaponvalue6} gold")
+    print(f'1) {player_stats["weaponslot1"]} {item_values["weaponvalue1"]} gold')
+    if player_stats["classlevel"] >= 4:
+        print(f'2) {player_stats["weaponslot2"]} {item_values["weaponvalue2"]} gold')
+    if player_stats["classlevel"] >= 8:
+        print(f'3) {player_stats["weaponslot3"]} {item_values["weaponvalue3"]} gold')
+    if player_stats["classlevel"] >= 12:
+        print(f'4) {player_stats["weaponslot4"]} {item_values["weaponvalue4"]} gold')
+    if player_stats["classlevel"] >= 16:
+        print(f'5) {player_stats["weaponslot5"]} {item_values["weaponvalue5"]} gold')
+    if player_stats["classlevel"] >= 20:
+        print(f'6) {player_stats["weaponslot6"]} {item_values["weaponvalue6"]} gold')
     print("\nPress (enter) to leave\n")
     choice = input()
     clear()
-    itemtype = "weapon"
+    shop_variables["itemtype"] = "weapon"
     if choice == "1":
-        purchaseitem = weaponslot1
-        itemvalue = weaponvalue1
-        itembonus = 2                
+        shop_variables["purchaseitem"] = player_stats["weaponslot1"]
+        shop_variables["itemvalue"] = item_values["weaponvalue1"]
+        shop_variables["itembonus"] = 2                
 # [and] statements prevent the game from crashing
-    elif choice == "2" and classlevel >= 4:
-        purchaseitem = weaponslot2
-        itemvalue = weaponvalue2
-        itembonus = 4
-    elif choice == "3" and classlevel >= 8:
-        purchaseitem = weaponslot3
-        itemvalue = weaponvalue3
-        itembonus = 6
-    elif choice == "4" and classlevel >= 12:
-        purchaseitem = weaponslot4
-        itemvalue = weaponvalue4
-        itembonus = 8
-    elif choice == "5" and classlevel >= 16:
-        purchaseitem = weaponslot5
-        itemvalue = weaponvalue5
-        itembonus = 10
-    elif choice == "6" and classlevel >= 20:
-        purchaseitem = weaponslot6
-        itemvalue = weaponvalue6
-        itembonus = 12
+    elif choice == "2" and player_stats["classlevel"] >= 4:
+        shop_variables["purchaseitem"] = player_stats["weaponslot2"]
+        shop_variables["itemvalue"] = item_values["weaponvalue2"]
+        shop_variables["itembonus"] = 4
+    elif choice == "3" and player_stats["classlevel"] >= 8:
+        shop_variables["purchaseitem"] = player_stats["weaponslot3"]
+        shop_variables["itemvalue"] = item_values["weaponvalue3"]
+        shop_variables["itembonus"] = 6
+    elif choice == "4" and player_stats["classlevel"] >= 12:
+        shop_variables["purchaseitem"] = player_stats["weaponslot4"]
+        shop_variables["itemvalue"] = item_values["weaponvalue4"]
+        shop_variables["itembonus"] = 8
+    elif choice == "5" and player_stats["classlevel"] >= 16:
+        shop_variables["purchaseitem"] = player_stats["weaponslot5"]
+        shop_variables["itemvalue"] = item_values["weaponvalue5"]
+        shop_variables["itembonus"] = 10
+    elif choice == "6" and player_stats["classlevel"] >= 20:
+        shop_variables["purchaseitem"] = player_stats["weaponslot6"]
+        shop_variables["itemvalue"] = item_values["weaponvalue6"]
+        shop_variables["itembonus"] = 12
     else:
         shop()
     confirmpurchase()
@@ -1426,118 +1209,118 @@ def armorshop():
     global resellitem
     global resellvalue
     global armorvalue1
-    global armorvalue2
-    global armorvalue3
-    global armorvalue4
-    global armorvalue5
-    global armorvalue6
+    global item_values["armorvalue2"]
+    global item_values["armorvalue3"]
+    global item_values["armorvalue4"]
+    global item_values["armorvalue5"]
+    global item_values["armorvalue6"]
     global playerclass
     clear()
-    if armor == 1:
-        resellvalue = 5
-    elif armor == 2:
-        resellvalue = 25
-    elif armor == 4:
-        resellvalue = 125
-    elif armor == 6:
-        resellvalue = 750
-    elif armor == 8:
-        resellvalue = 2250
-    elif armor == 10:
-        resellvalue = 6000
-    elif armor == 12:
-        resellvalue = 15000
+    if player_stats["armor"] == 1:
+        shop_variables["resellvalue"] = 5
+    elif player_stats["armor"] == 2:
+        shop_variables["resellvalue"] = 25
+    elif player_stats["armor"] == 4:
+        shop_variables["resellvalue"] = 125
+    elif player_stats["armor"] == 6:
+        shop_variables["resellvalue"] = 750
+    elif player_stats["armor"] == 8:
+        shop_variables["resellvalue"] = 2250
+    elif player_stats["armor"] == 10:
+        shop_variables["resellvalue"] = 6000
+    elif player_stats["armor"] == 12:
+        shop_variables["resellvalue"] = 15000
     else:
-        resellvalue = 0
-    totalassets = resellvalue + gold
-    resellitem = armorname
+        shop_variables["resellvalue"] = 0
+    shop_variables["totalassets"] = shop_variables["resellvalue"] + player_stats["gold"]
+    shop_variables["resellitem"] = player_stats["armorname"]
     print("What would you like to buy?\n")    
-    if fresharmor:
-        fresharmor = False
-        armorvalue1 = randint(5,10)
-        armorvalue1 = armorvalue1 * 5
-        if classlevel >= 4:
-            armorvalue2 = randint(75,125)
-            armorvalue2 = armorvalue2 // 2
-            armorvalue2 = armorvalue2 * 5
-        if classlevel >= 8:
-            armorvalue3 = randint(75,125)
-            armorvalue3 = armorvalue3 // 2
-            armorvalue3 = armorvalue3 * 15
-        if classlevel >= 12:            
-            armorvalue4 = randint(75,125)
-            armorvalue4 = armorvalue4 // 2
-            armorvalue4 = armorvalue4 * 45
-        if classlevel >= 16:
-            armorvalue5 = randint(75,125)
-            armorvalue5 = armorvalue5 // 2
-            armorvalue5 = armorvalue5 * 120
-        if classlevel >= 20:
-            armorvalue6 = randint(75,125)
-            armorvalue6 = armorvalue6 // 2
-            armorvalue6 = armorvalue6 * 350
+    if player_stats["fresharmor"]:
+        player_stats["fresharmor"] = False
+        item_values["armorvalue1"] = randint(5,10)
+        item_values["armorvalue1"] = item_values["armorvalue1"] * 5
+        if player_stats["classlevel"] >= 4:
+            item_values["armorvalue2"] = randint(75,125)
+            item_values["armorvalue2"] = item_values["armorvalue2"] // 2
+            item_values["armorvalue2"] = item_values["armorvalue2"] * 5
+        if player_stats["classlevel"] >= 8:
+            item_values["armorvalue3"] = randint(75,125)
+            item_values["armorvalue3"] = item_values["armorvalue3"] // 2
+            item_values["armorvalue3"] = item_values["armorvalue3"] * 15
+        if player_stats["classlevel"] >= 12:            
+            item_values["armorvalue4"] = randint(75,125)
+            item_values["armorvalue4"] = item_values["armorvalue4"] // 2
+            item_values["armorvalue4"] = item_values["armorvalue4"] * 45
+        if player_stats["classlevel"] >= 16:
+            item_values["armorvalue5"] = randint(75,125)
+            item_values["armorvalue5"] = item_values["armorvalue5"] // 2
+            item_values["armorvalue5"] = item_values["armorvalue5"] * 120
+        if player_stats["classlevel"] >= 20:
+            item_values["armorvalue6"] = randint(75,125)
+            item_values["armorvalue6"] = item_values["armorvalue6"] // 2
+            item_values["armorvalue6"] = item_values["armorvalue6"] * 350
     armorslot1 = "leather"
     armorslot2 = "ring mail"    
     armorslot3 = "chain mail"
     armorslot4 = "plate mail"
     armorslot5 = "mithril"
     armorslot6 = "dragon scale"
-    if playerclass == "rogue":
+    if player_stats["playerclass"] == "rogue":
         armorslot2 = "studded leather"
         armorslot3 = "elven cloak"
         armorslot4 = "magic cloak"
         armorslot5 = "ninja"
         armorslot6 = "shadow cloak"
-    if playerclass == "bard" or playerclass == "mage":
+    if player_stats["playerclass"] == "bard" or player_stats["playerclass"] == "mage":
         armorslot4 = "elven chain mail"
         armorslot5 = "mithril vest"
         armorslot6 = "dragon scale cape"
-    if playerclass == "mage":
+    if player_stats["playerclass"] == "mage":
         armorslot1 = "apprentice robe"
         armorslot2 = "heavy robe"
         armorslot3 = "wizard robe"
         armorslot4 = "magic robe"
         armorslot5 = "sage robe"
         armorslot6 = "aegis robe"        
-    print(f"1) {armorslot1} {armorvalue1} gold")
-    if classlevel >= 4:
-        print(f"2) {armorslot2} {armorvalue2} gold")
-    if classlevel >= 8:
-        print(f"3) {armorslot3} {armorvalue3} gold")
-    if classlevel >= 12:
-        print(f"4) {armorslot4} {armorvalue4} gold")
-    if classlevel >= 16:
-        print(f"5) {armorslot5} {armorvalue5} gold")
-    if classlevel >= 20:
-        print(f"6) {armorslot6} {armorvalue6} gold")
+    print(f"1) {armorslot1} {item_values["armorvalue1"]} gold")
+    if player_stats["classlevel"] >= 4:
+        print(f"2) {armorslot2} {item_values["armorvalue2"]} gold")
+    if player_stats["classlevel"] >= 8:
+        print(f"3) {armorslot3} {item_values["armorvalue3"]} gold")
+    if player_stats["classlevel"] >= 12:
+        print(f"4) {armorslot4} {item_values["armorvalue4"]} gold")
+    if player_stats["classlevel"] >= 16:
+        print(f"5) {armorslot5} {item_values["armorvalue5"]} gold")
+    if player_stats["classlevel"] >= 20:
+        print(f"6) {armorslot6} {item_values["armorvalue6"]} gold")
     print("\nPress (enter) to leave\n")
     choice = input()
     clear()
-    itemtype = "armor"
+    shop_variables["itemtype"] = "armor"
     if choice == "1":
-        purchaseitem = armorslot1
-        itemvalue = armorvalue1
-        itembonus = 2                
-    elif choice == "2" and classlevel >= 4:
-        purchaseitem = armorslot2
-        itemvalue = armorvalue2
-        itembonus = 4
-    elif choice == "3" and classlevel >= 8:
-        purchaseitem = armorslot3
-        itemvalue = armorvalue3
-        itembonus = 6
-    elif choice == "4" and classlevel >= 12:
-        purchaseitem = armorslot4
-        itemvalue = armorvalue4
-        itembonus = 8
-    elif choice == "5" and classlevel >= 16:
-        purchaseitem = armorslot5
-        itemvalue = armorvalue5
-        itembonus = 10
-    elif choice == "6" and classlevel >= 20:
-        purchaseitem = armorslot6
-        itemvalue = armorvalue6
-        itembonus = 12
+        shop_variables["purchaseitem"] = armorslot1
+        shop_variables["itemvalue"] = item_values["armorvalue1"]
+        shop_variables["itembonus"] = 2                
+    elif choice == "2" and player_stats["classlevel"] >= 4:
+        shop_variables["purchaseitem"] = armorslot2
+        shop_variables["itemvalue"] = item_values["armorvalue2"]
+        shop_variables["itembonus"] = 4
+    elif choice == "3" and player_stats["classlevel"] >= 8:
+        shop_variables["purchaseitem"] = armorslot3
+        shop_variables["itemvalue"] = item_values["armorvalue3"]
+        shop_variables["itembonus"] = 6
+    elif choice == "4" and player_stats["classlevel"] >= 12:
+        shop_variables["purchaseitem"] = armorslot4
+        shop_variables["itemvalue"] = item_values["armorvalue4"]
+        shop_variables["itembonus"] = 8
+    elif choice == "5" and player_stats["classlevel"] >= 16:
+        shop_variables["purchaseitem"] = armorslot5
+        shop_variables["itemvalue"] = item_values["armorvalue5"]
+        shop_variables["itembonus"] = 10
+    elif choice == "6" and player_stats["classlevel"] >= 20:
+        shop_variables["purchaseitem"] = armorslot6
+        shop_variables["itemvalue"] = item_values["armorvalue6"]
+        shop_variables["itembonus"] = 12
     else:
         shop()
     confirmpurchase()    
@@ -1550,76 +1333,76 @@ def focusshop():
     global gold
     global purchaseitem
     global itemvalue
-    global itembonus
-    global itemtype  
-    global totalassets
-    global resellitem
-    global resellvalue
-    global mweaponvalue1
-    global mweaponvalue2
-    global mweaponvalue3
-    global mweaponvalue4
-    global mweaponvalue5
-    global mweaponvalue6
+    global shop_variables["itembonus"]
+    global shop_variables["itemtype"]  
+    global shop_variables["totalassets"]
+    global shop_variables["resellitem"]
+    global shop_variables["resellvalue"]
+    global item_values["mweaponvalue1"]
+    global item_values["mweaponvalue2"]
+    global item_values["mweaponvalue3"]
+    global item_values["mweaponvalue4"]
+    global item_values["mweaponvalue5"]
+    global item_values["mweaponvalue6"]
     global playerclass
     clear()
-    if magicweapon == 1:
-        resellvalue = 5
-    elif magicweapon == 2:
-        resellvalue = 25
-    elif magicweapon == 4:
-        resellvalue = 125
-    elif magicweapon == 6:
-        resellvalue = 750
-    elif magicweapon == 8:
-        resellvalue = 2250
-    elif magicweapon == 10:
-        resellvalue = 6000
-    elif magicweapon == 12:
-        resellvalue = 15000
+    if player_stats["magicweapon"] == 1:
+        shop_variables["resellvalue"] = 5
+    elif player_stats["magicweapon"] == 2:
+        shop_variables["resellvalue"] = 25
+    elif player_stats["magicweapon"] == 4:
+        shop_variables["resellvalue"] = 125
+    elif player_stats["magicweapon"] == 6:
+        shop_variables["resellvalue"] = 750
+    elif player_stats["magicweapon"] == 8:
+        shop_variables["resellvalue"] = 2250
+    elif player_stats["magicweapon"] == 10:
+        shop_variables["resellvalue"] = 6000
+    elif player_stats["magicweapon"] == 12:
+        shop_variables["resellvalue"] = 15000
     else:
-        resellvalue = 0
-    totalassets = resellvalue + gold
-    resellitem = magicweaponname
+        shop_variables["resellvalue"] = 0
+    shop_variables["totalassets"] = shop_variables["resellvalue"] + player_stats["gold"]
+    shop_variables["resellitem"] = player_stats["magicweaponname"]
     print("What would you like to buy?\n")    
-    if freshmagicweapons:
-        freshmagicweapons = False
-        mweaponvalue1 = randint(5,10)
-        mweaponvalue1 = mweaponvalue1 * 5
-        if classlevel >= 4:
-            mweaponvalue2 = randint(75,125)
-            mweaponvalue2 = mweaponvalue2 // 2
-            mweaponvalue2 = mweaponvalue2 * 5
-        if classlevel >= 8:
-            mweaponvalue3 = randint(75,125)
-            mweaponvalue3 = mweaponvalue3 // 2
-            mweaponvalue3 = mweaponvalue3 * 15
-        if classlevel >= 12:            
-            mweaponvalue4 = randint(75,125)
-            mweaponvalue4 = mweaponvalue4 // 2
-            mweaponvalue4 = mweaponvalue4 * 45
-        if classlevel >= 16:
-            mweaponvalue5 = randint(75,125)
-            mweaponvalue5 = mweaponvalue5 // 2
-            mweaponvalue5 = mweaponvalue5 * 120
-        if classlevel >= 20:
-            mweaponvalue6 = randint(75,125)
-            mweaponvalue6 = mweaponvalue6 // 2
-            mweaponvalue6 = mweaponvalue6 * 350
+    if player_stats["freshmagicweapons"]:
+        player_stats["freshmagicweapons"] = False
+        item_values["mweaponvalue1"] = randint(5,10)
+        item_values["mweaponvalue1"] = item_values["mweaponvalue1"] * 5
+        if player_stats["classlevel"] >= 4:
+            item_values["mweaponvalue2"] = randint(75,125)
+            item_values["mweaponvalue2"] = item_values["mweaponvalue2"] // 2
+            item_values["mweaponvalue2"] = item_values["mweaponvalue2"] * 5
+        if player_stats["classlevel"] >= 8:
+            item_values["mweaponvalue3"] = randint(75,125)
+            item_values["mweaponvalue3"] = item_values["mweaponvalue3"] // 2
+            item_values["mweaponvalue3"] = item_values["mweaponvalue3"] * 15
+        if player_stats["classlevel"] >= 12:            
+            item_values["mweaponvalue4"] = randint(75,125)
+            item_values["mweaponvalue4"] = item_values["mweaponvalue4"] // 2
+            item_values["mweaponvalue4"] = item_values["mweaponvalue4"] * 45
+        if player_stats["classlevel"] >= 16:
+            item_values["mweaponvalue5"] = randint(75,125)
+            item_values["mweaponvalue5"] = item_values["mweaponvalue5"] // 2
+            item_values["mweaponvalue5"] = item_values["mweaponvalue5"] * 120
+        if player_stats["classlevel"] >= 20:
+            item_values["mweaponvalue6"] = randint(75,125)
+            item_values["mweaponvalue6"] = item_values["mweaponvalue6"] // 2
+            item_values["mweaponvalue6"] = item_values["mweaponvalue6"] * 350
     mweaponslot1 = "oak wand"
     mweaponslot2 = "rowan wand"    
     mweaponslot3 = "ash wand"
     mweaponslot4 = "crystal wand"
     mweaponslot5 = "master wand"
     mweaponslot6 = "elder wand"
-    if playerclass == "cleric":
+    if player_stats["playerclass"] == "cleric":
         mweaponslot1 = "oak staff"
         mweaponslot2 = "rowan staff"    
         mweaponslot3 = "holy staff"
         mweaponslot4 = "sage staff"
         mweaponslot5 = "blessed staff"
         mweaponslot6 = "staff of light" 
-    if playerclass == "mage":
+    if player_stats["playerclass"] == "mage":
         mweaponslot1 = "oak staff"
         mweaponslot2 = "rowan staff"    
         mweaponslot3 = "wizard staff"
@@ -1627,45 +1410,45 @@ def focusshop():
         mweaponslot5 = "staff of the magus"
         mweaponslot6 = "starlight staff"       
 # the store displays the weapons that are currently available and how much they cost
-    print(f"1) {mweaponslot1} {mweaponvalue1} gold")
-    if classlevel >= 4:
-        print(f"2) {mweaponslot2} {mweaponvalue2} gold")
-    if classlevel >= 8:
-        print(f"3) {mweaponslot3} {mweaponvalue3} gold")
-    if classlevel >= 12:
-        print(f"4) {mweaponslot4} {mweaponvalue4} gold")
-    if classlevel >= 16:
-        print(f"5) {mweaponslot5} {mweaponvalue5} gold")
-    if classlevel >= 20:
-        print(f"6) {mweaponslot6} {mweaponvalue6} gold")
+    print(f"1) {mweaponslot1} {item_values["mweaponvalue1"]} gold")
+    if player_stats["classlevel"] >= 4:
+        print(f"2) {mweaponslot2} {item_values["mweaponvalue2"]} gold")
+    if player_stats["classlevel"] >= 8:
+        print(f"3) {mweaponslot3} {item_values["mweaponvalue3"]} gold")
+    if player_stats["classlevel"] >= 12:
+        print(f"4) {mweaponslot4} {item_values["mweaponvalue4"]} gold")
+    if player_stats["classlevel"] >= 16:
+        print(f"5) {mweaponslot5} {item_values["mweaponvalue5"]} gold")
+    if player_stats["classlevel"] >= 20:
+        print(f"6) {mweaponslot6} {item_values["mweaponvalue6"]} gold")
     print("\nPress (enter) to leave\n")
     choice = input()
     clear()
-    itemtype = "mweapon"
+    shop_variables["itemtype"] = "mweapon"
     if choice == "1":
-        purchaseitem = mweaponslot1
-        itemvalue = mweaponvalue1
-        itembonus = 2                
-    elif choice == "2" and classlevel >= 4:
-        purchaseitem = mweaponslot2
-        itemvalue = mweaponvalue2
-        itembonus = 4
-    elif choice == "3" and classlevel >= 8:
-        purchaseitem = mweaponslot3
-        itemvalue = mweaponvalue3
-        itembonus = 6
-    elif choice == "4" and classlevel >= 12:
-        purchaseitem = mweaponslot4
-        itemvalue = mweaponvalue4
-        itembonus = 8
-    elif choice == "5" and classlevel >= 16:
-        purchaseitem = mweaponslot5
-        itemvalue = mweaponvalue5
-        itembonus = 10
-    elif choice == "6" and classlevel >= 20:
-        purchaseitem = mweaponslot6
-        itemvalue = mweaponvalue6
-        itembonus = 12
+        shop_variables["purchaseitem"] = mweaponslot1
+        shop_variables["itemvalue"] = item_values["mweaponvalue1"]
+        shop_variables["itembonus"] = 2                
+    elif choice == "2" and player_stats["classlevel"] >= 4:
+        shop_variables["purchaseitem"] = mweaponslot2
+        shop_variables["itemvalue"] = item_values["mweaponvalue2"]
+        shop_variables["itembonus"] = 4
+    elif choice == "3" and player_stats["classlevel"] >= 8:
+        shop_variables["purchaseitem"] = mweaponslot3
+        shop_variables["itemvalue"] = item_values["mweaponvalue3"]
+        shop_variables["itembonus"] = 6
+    elif choice == "4" and player_stats["classlevel"] >= 12:
+        shop_variables["purchaseitem"] = mweaponslot4
+        shop_variables["itemvalue"] = item_values["mweaponvalue4"]
+        shop_variables["itembonus"] = 8
+    elif choice == "5" and player_stats["classlevel"] >= 16:
+        shop_variables["purchaseitem"] = mweaponslot5
+        shop_variables["itemvalue"] = item_values["mweaponvalue5"]
+        shop_variables["itembonus"] = 10
+    elif choice == "6" and player_stats["classlevel"] >= 20:
+        shop_variables["purchaseitem"] = mweaponslot6
+        shop_variables["itemvalue"] = item_values["mweaponvalue6"]
+        shop_variables["itembonus"] = 12
     else:
         shop()
     confirmpurchase()    
@@ -1677,114 +1460,114 @@ def charmshop():
     global gold
     global purchaseitem
     global itemvalue
-    global itembonus
-    global itemtype  
-    global totalassets
-    global resellitem
-    global resellvalue
-    global charmvalue1
-    global charmvalue2
-    global charmvalue3
-    global charmvalue4
-    global charmvalue5
-    global charmvalue6
+    global shop_variables["itembonus"]
+    global shop_variables["itemtype"]  
+    global shop_variables["totalassets"]
+    global shop_variables["resellitem"]
+    global shop_variables["resellvalue"]
+    global item_values["charmvalue1"]
+    global item_values["charmvalue2"]
+    global item_values["charmvalue3"]
+    global item_values["charmvalue4"]
+    global item_values["charmvalue5"]
+    global item_values["charmvalue6"]
     global playerclass
     clear()
-    if charm == 1:
-        resellvalue = 5
-    elif charm == 2:
-        resellvalue = 25
-    elif charm == 4:
-        resellvalue = 125
-    elif charm == 6:
-        resellvalue = 750
-    elif charm == 8:
-        resellvalue = 2250
-    elif charm == 10:
-        resellvalue = 6000
-    elif charm == 12:
-        resellvalue = 15000
+    if player_stats["charm"] == 1:
+        shop_variables["resellvalue"] = 5
+    elif player_stats["charm"] == 2:
+        shop_variables["resellvalue"] = 25
+    elif player_stats["charm"] == 4:
+        shop_variables["resellvalue"] = 125
+    elif player_stats["charm"] == 6:
+        shop_variables["resellvalue"] = 750
+    elif player_stats["charm"] == 8:
+        shop_variables["resellvalue"] = 2250
+    elif player_stats["charm"] == 10:
+        shop_variables["resellvalue"] = 6000
+    elif player_stats["charm"] == 12:
+        shop_variables["resellvalue"] = 15000
     else:
-        resellvalue = 0
-    totalassets = resellvalue + gold
-    resellitem = magicweaponname
+        shop_variables["resellvalue"] = 0
+    shop_variables["totalassets"] = shop_variables["resellvalue"] + player_stats["gold"]
+    shop_variables["resellitem"] = player_stats["magicweaponname"]
     print("What would you like to buy?\n")    
-    if freshcharms:
-        freshcharms = False
-        charmvalue1 = randint(5,10)
-        charmvalue1 = charmvalue1 * 5
-        if classlevel >= 4:
-            charmvalue2 = randint(75,125)
-            charmvalue2 = charmvalue2 // 2
-            charmvalue2 = charmvalue2 * 5
-        if classlevel >= 8:
-            charmvalue3 = randint(75,125)
-            charmvalue3 = charmvalue3 // 2
-            charmvalue3 = charmvalue3 * 15
-        if classlevel >= 12:            
-            charmvalue4 = randint(75,125)
-            charmvalue4 = charmvalue4 // 2
-            charmvalue4 = charmvalue4 * 45
-        if classlevel >= 16:
-            charmvalue5 = randint(75,125)
-            charmvalue5 = charmvalue5 // 2
-            charmvalue5 = charmvalue5 * 120
-        if classlevel >= 20:
-            charmvalue6 = randint(75,125)
-            charmvalue6 = charmvalue6 // 2
-            charmvalue6 = charmvalue6 * 350
+    if player_stats["freshcharms"]:
+        player_stats["freshcharms"] = False
+        item_values["charmvalue1"] = randint(5,10)
+        item_values["charmvalue1"] = item_values["charmvalue1"] * 5
+        if player_stats["classlevel"] >= 4:
+            item_values["charmvalue2"] = randint(75,125)
+            item_values["charmvalue2"] = item_values["charmvalue2"] // 2
+            item_values["charmvalue2"] = item_values["charmvalue2"] * 5
+        if player_stats["classlevel"] >= 8:
+            item_values["charmvalue3"] = randint(75,125)
+            item_values["charmvalue3"] = item_values["charmvalue3"] // 2
+            item_values["charmvalue3"] = item_values["charmvalue3"] * 15
+        if player_stats["classlevel"] >= 12:            
+            item_values["charmvalue4"] = randint(75,125)
+            item_values["charmvalue4"] = item_values["charmvalue4"] // 2
+            item_values["charmvalue4"] = item_values["charmvalue4"] * 45
+        if player_stats["classlevel"] >= 16:
+            item_values["charmvalue5"] = randint(75,125)
+            item_values["charmvalue5"] = item_values["charmvalue5"] // 2
+            item_values["charmvalue5"] = item_values["charmvalue5"] * 120
+        if player_stats["classlevel"] >= 20:
+            item_values["charmvalue6"] = randint(75,125)
+            item_values["charmvalue6"] = item_values["charmvalue6"] // 2
+            item_values["charmvalue6"] = item_values["charmvalue6"] * 350
     charmslot1 = "copper ring"
     charmslot2 = "iron ring"    
     charmslot3 = "sapphire ring"
     charmslot4 = "garnet ring"
     charmslot5 = "opal ring"
     charmslot6 = "jade ring"
-    if playerclass == "cleric" or playerclass == "mage":
+    if player_stats["playerclass"] == "cleric" or player_stats["playerclass"] == "mage":
         charmslot1 = "amulet of protection"
         charmslot2 = "talisman"    
         charmslot3 = "sapphire pendant"
         charmslot4 = "garnet pendant"
         charmslot5 = "opal pendant"
         charmslot6 = "jade pendant" 
-    print(f"1) {charmslot1} {charmvalue1} gold")
-    if classlevel >= 4:
-        print(f"2) {charmslot2} {charmvalue2} gold")
-    if classlevel >= 8:
-        print(f"3) {charmslot3} {charmvalue3} gold")
-    if classlevel >= 12:
-        print(f"4) {charmslot4} {charmvalue4} gold")
-    if classlevel >= 16:
-        print(f"5) {charmslot5} {charmvalue5} gold")
-    if classlevel >= 20:
-        print(f"6) {charmslot6} {charmvalue6} gold")
+    print(f"1) {charmslot1} {item_values["charmvalue1"]} gold")
+    if player_stats["classlevel"] >= 4:
+        print(f"2) {charmslot2} {item_values["charmvalue2"]} gold")
+    if player_stats["classlevel"] >= 8:
+        print(f"3) {charmslot3} {item_values["charmvalue3"]} gold")
+    if player_stats["classlevel"] >= 12:
+        print(f"4) {charmslot4} {item_values["charmvalue4"]} gold")
+    if player_stats["classlevel"] >= 16:
+        print(f"5) {charmslot5} {item_values["charmvalue5"]} gold")
+    if player_stats["classlevel"] >= 20:
+        print(f"6) {charmslot6} {item_values["charmvalue6"]} gold")
     print("\nPress (enter) to leave\n")
     choice = input()
     clear()
-    itemtype = "charm"
+    shop_variables["itemtype"] = "charm"
     if choice == "1":
-        purchaseitem = charmslot1
-        itemvalue = charmvalue1
-        itembonus = 2                
-    elif choice == "2" and classlevel >= 4:
-        purchaseitem = charmslot2
-        itemvalue = charmvalue2
-        itembonus = 4
-    elif choice == "3" and classlevel >= 8:
-        purchaseitem = charmslot3
-        itemvalue = charmvalue3
-        itembonus = 6
-    elif choice == "4" and classlevel >= 12:
-        purchaseitem = charmslot4
-        itemvalue = charmvalue4
-        itembonus = 8
-    elif choice == "5" and classlevel >= 16:
-        purchaseitem = charmslot5
-        itemvalue = charmvalue5
-        itembonus = 10
-    elif choice == "6" and classlevel >= 20:
-        purchaseitem = charmslot6
-        itemvalue = charmvalue6
-        itembonus = 12
+        shop_variables["purchaseitem"] = charmslot1
+        shop_variables["itemvalue"] = item_values["charmvalue1"]
+        shop_variables["itembonus"] = 2                
+    elif choice == "2" and player_stats["classlevel"] >= 4:
+        shop_variables["purchaseitem"] = charmslot2
+        shop_variables["itemvalue"] = item_values["charmvalue2"]
+        shop_variables["itembonus"] = 4
+    elif choice == "3" and player_stats["classlevel"] >= 8:
+        shop_variables["purchaseitem"] = charmslot3
+        shop_variables["itemvalue"] = item_values["charmvalue3"]
+        shop_variables["itembonus"] = 6
+    elif choice == "4" and player_stats["classlevel"] >= 12:
+        shop_variables["purchaseitem"] = charmslot4
+        shop_variables["itemvalue"] = item_values["charmvalue4"]
+        shop_variables["itembonus"] = 8
+    elif choice == "5" and player_stats["classlevel"] >= 16:
+        shop_variables["purchaseitem"] = charmslot5
+        shop_variables["itemvalue"] = item_values["charmvalue5"]
+        shop_variables["itembonus"] = 10
+    elif choice == "6" and player_stats["classlevel"] >= 20:
+        shop_variables["purchaseitem"] = charmslot6
+        shop_variables["itemvalue"] = item_values["charmvalue6"]
+        shop_variables["itembonus"] = 12
     else:
         shop()
     confirmpurchase()     
@@ -1797,69 +1580,51 @@ def spellshop():
     
 # this function resolves purchases from the weapon, armor, magic weapon, and charm stores, which is why it has so many global variables    
 def confirmpurchase():
-    global resellitem
-    global resellvalue
-    global itemtype
-    global itemvalue
-    global itembonus
-    global totalassets
-    global purchaseitem
-    global resellitem
-    global resellvalue
-    global weaponname
-    global weapon
-    global armorname
-    global armor
-    global magicweaponname
-    global magicweapon
-    global charmname
-    global charm
-    global gold
     global slotchosen 
-    if itemvalue > totalassets:
+    if shop_variables["itemvalue"] > shop_variables["totalassets"]:
         print("You don't have enough gold!\n")
         input()
         shop()
     else:
-        if resellvalue > 0:
-            print(f"The {purchaseitem}? Then I will buy your {resellitem} for {resellvalue} gold.\n")
+        if shop_variables["resellvalue"] > 0:
+            print(f'The {shop_variables["purchaseitem"]}? Then I will buy your {shop_variables["resellitem"]} for {shop_variables["resellvalue"]} gold.\n')
             print("Deal?\n")
         else:
-            print(f"The {purchaseitem}? Are you sure?\n")            
+            print(f'The {shop_variables["purchaseitem"]}? Are you sure?\n')            
         choice = input()
         clear()
         if choice == "y" or choice == "yes":
-            if itemtype == "weapon":
-                weaponname = purchaseitem
-                weapon = itembonus
-                gold -= itemvalue
-                gold += resellvalue
-            elif itemtype == "armor":
-                armorname = purchaseitem
-                armor = itembonus
-                gold -= itemvalue
-                gold += resellvalue
-            elif itemtype == "mweapon":
-                magicweaponname = purchaseitem
-                magicweapon = itembonus
-                gold -= itemvalue
-                gold += resellvalue
-            elif itemtype == "charm":
-                charmname = purchaseitem
-                charm = itembonus
-                gold -= itemvalue
-                gold += resellvalue
-            elif itemtype == "spell":
+            if shop_variables["itemtype"] == "weapon":
+                player_stats["weaponname"] = shop_variables["purchaseitem"]
+                player_stats["weapon"] = shop_variables["itembonus"]
+                player_stats["gold"] -= shop_variables["itemvalue"]
+                player_stats["gold"] += shop_variables["resellvalue"]
+            elif shop_variables["itemtype"] == "armor":
+                player_stats["armorname"] = shop_variables["purchaseitem"]
+                player_stats["armor"] = shop_variables["itembonus"]
+                player_stats["gold"] -= shop_variables["itemvalue"]
+                player_stats["gold"] += shop_variables["resellvalue"]
+            elif shop_variables["itemtype"] == "mweapon":
+                player_stats["magicweaponname"] = shop_variables["purchaseitem"]
+                player_stats["magicweapon"] = shop_variables["itembonus"]
+                player_stats["gold"] -= shop_variables["itemvalue"]
+                player_stats["gold"] += shop_variables["resellvalue"]
+            elif shop_variables["itemtype"] == "charm":
+                player_stats["charmname"] = shop_variables["purchaseitem"]
+                player_stats["charm"] = shop_variables["itembonus"]
+                player_stats["gold"] -= shop_variables["itemvalue"]
+                player_stats["gold"] += shop_variables["resellvalue"]
+            elif shop_variables["itemtype"] == "spell":
                 if slotchosen == 1:
-                    spellslot1 = purchaseitem
+                    player_stats["spellslot1"] = shop_variables["purchaseitem"]
                 elif slotchosen == 2:
-                    spellslot2 = purchaseitem
+                    player_stats["spellslot2"] = shop_variables["purchaseitem"]
                 elif slotchosen == 3:
-                    spellslot3 = purchaseitem
+                    player_stats["spellslot3"] = shop_variables["purchaseitem"]
                 elif slotchosen == 4:
-                    spellslot4 = purchaseitem
-                gold -= itemvalue
-                gold += resellvalue
+                    player_stats["spellslot4"] = shop_variables["purchaseitem"]
+                player_stats["gold"] -= shop_variables["itemvalue"]
+                player_stats["gold"] += shop_variables["resellvalue"]
             print("Thank you! Please shop here again.\n")
             print("Press (enter) to continue\n")
             input()
@@ -1893,86 +1658,86 @@ def combat():
     global spellslot3
     global spellslot4
     global health
-    global enemyname
-    global enemybreath
-    global enemycancast
-    global enemycanheal
-    global enemyattack 
-    global enemydefense 
-    global enemyagility 
-    global enemymagic 
-    global enemyweapon 
-    global enemyarmor 
-    global enemyhealth 
-    global enemylevel 
-    global xpdrop    
-    global golddrop
-    global firstturn
+    global enemy_stats["enemyname"]
+    global enemy_stats["enemybreath"]
+    global enemy_stats["enemycancast"]
+    global enemy_stats["enemycanheal"]
+    global enemy_stats["enemyattack"] 
+    global enemy_stats["enemydefense"] 
+    global enemy_stats["enemyagility"] 
+    global enemy_stats["enemymagic"] 
+    global enemy_stats["enemyweapon"] 
+    global enemy_stats["enemyarmor"] 
+    global enemy_stats["enemyhealth"] 
+    global enemy_stats["enemylevel"] 
+    global enemy_stats["xpdrop"]    
+    global enemy_stats["golddrop"]
+    global combat_variables["firstturn"]
     global action
-    global playerturn
+    global combat_variables["playerturn"]
     global sneak
     global keylogging
-    global woundpenalty
-    global enemywound
-    global magicmenu
-    global incombat
-    global enemysleepcounter
+    global combat_variables["woundpenalty"]
+    global enemy_stats["enemywound"]
+    global combat_variables["magicmenu"]
+    global combat_variables["incombat"]
+    global enemy_stats["enemysleepcounter"]
     keylogging = True
-    incombat = True
+    combat_variables["incombat"] = True
     # see who goes first
-    if firstturn:
-        enemysleepcounter = 0
+    if combat_variables["firstturn"]:
+        enemy_stats["enemysleepcounter"] = 0
         clear()
-        print(f"A {enemyname} appears!\n")
-        firstturn = False
+        print(f"A {enemy_stats["enemyname"]} appears!\n")
+        combat_variables["firstturn"] = False
         initiative = randint(1,20)
-        if playerclass == "rogue":
+        if player_stats["playerclass"] == "rogue":
             if initiative <= 2:
                 initiative = randint(1,20)
                 print("Rogue reroll!")
-        initiative += agility
+        initiative += player_stats["agility"]
         enemyinitiative = 10
-        enemyinitiative += enemyagility
+        enemyinitiative += enemy_stats["enemyagility"]
         if initiative < enemyinitiative:
-            print(f"The {enemyname} attacks before you are ready!\n")
-            playerturn = False
+            print(f"The {enemy_stats["enemyname"]} attacks before you are ready!\n")
+            combat_variables["playerturn"] = False
             combat()
         elif initiative <= enemyinitiative + 5:
-            print(f"You strike first before the {enemyname}!\n")
-            playerturn = True
+            print(f"You strike first before the {enemy_stats["enemyname"]}!\n")
+            combat_variables["playerturn"] = True
             input("Press (enter) to continue\n")
             combat()
         else:
-            print(f"You sneak up on the {enemyname}!\n")
-            playerturn = True
-            sneak = True
+            print(f"You sneak up on the {enemy_stats["enemyname"]}!\n")
+            combat_variables["playerturn"] = True
+            combat_variables["sneak"] = True
             input("Press (enter) to continue\n")
             combat()
 # player's turn starts here        
-    if playerturn:
-        if enemyhealth < 30:
-            enemywound = "severely "
-        elif enemyhealth < 55:
-            enemywound = ""
-        elif enemyhealth < 80:
-            enemywound = "somewhat "
-        elif enemyhealth < 100:
-            enemywound = "barely "
+    if combat_variables["playerturn"]:
+        if enemy_stats["enemyhealth"] < 30:
+            enemy_stats["enemywound"] = "severely "
+        elif enemy_stats["enemyhealth"] < 55:
+            enemy_stats["enemywound"] = ""
+        elif enemy_stats["enemyhealth"] < 80:
+            enemy_stats["enemywound"] = "somewhat "
+        elif enemy_stats["enemyhealth"] < 100:
+            enemy_stats["enemywound"] = "barely "
         else:
-            enemywound = "not "
-        if health < 30:
-            woundpenalty = 3
-        elif health < 55:
-            woundpenalty = 2
-        elif health < 80:
-            woundpenalty = 1
+            enemy_stats["enemywound"] = "not "
+        if player_stats["health"] < 30:
+            combat_variables["woundpenalty"] = 3
+        elif player_stats["health"] < 55:
+            combat_variables["woundpenalty"] = 2
+        elif player_stats["health"] < 80:
+            combat_variables["woundpenalty"] = 1
         else:
-            woundpenalty = 0
+            combat_variables["woundpenalty"] = 0
         clear()
-        print(f"""{playername} the {heritage} {playerclass} (Lvl: {classlevel})
-Health: {health}%
+        print(f"""{player_stats["playername"]} the {player_stats["heritage"]} {player_stats["playerclass"]} (Lvl: {player_stats["classlevel"]})
+Health: {player_stats["health"]}%
 
-You are fighting a {enemyname}. It is {enemywound}wounded.
+You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}wounded.
 
              ^
            Fight
@@ -1986,128 +1751,128 @@ You are fighting a {enemyname}. It is {enemywound}wounded.
 # player chooses attack        
         if action == "N":
             action = ""
-            playerturn = False 
+            combat_variables["playerturn"] = False 
             keylogging = False
-            print(f"You attack the {enemyname}!")
+            print(f"You attack the {enemy_stats["enemyname"]}!")
             attackroll = randint(1,20)
-            if sneak or enemysleepcounter >= 1:
+            if combat_variables["sneak"] or enemy_stats["enemysleepcounter"] >= 1:
                 attackroll2 = randint(1,20)
                 if attackroll2 > attackroll:
                     attackroll = attackroll2 
-                sneak = False
-                if enemysleepcounter >= 1:
-                    enemysleepcounter = 1
-            if playerclass == "warrior":
+                combat_variables["sneak"] = False
+                if enemy_stats["enemysleepcounter"] >= 1:
+                    enemy_stats["enemysleepcounter"] = 1
+            if player_stats["playerclass"] == "warrior":
                 if attackroll <= 2:
                     attackroll = randint(1,20)
                     print("Warrior reroll!")
-            attackroll += attack
-            attackroll += weapon
-            attackroll -= woundpenalty
+            attackroll += player_stats["attack"]
+            attackroll += player_stats["weapon"]
+            attackroll -= combat_variables["woundpenalty"]
             combatdefense = 10
-            combatdefense += enemydefense
-            combatdefense += enemyarmor
+            combatdefense += enemy_stats["enemydefense"]
+            combatdefense += enemy_stats["enemyarmor"]
             if attackroll < combatdefense:
                 print(f"You roll a {attackroll} to hit {combatdefense}. A miss!\n")
-                playerturn = False
+                combat_variables["playerturn"] = False
                 combat()
             else:
                 damage = attackroll - combatdefense + 1
                 damage = damage * 5
                 print(f"You roll a {attackroll} to hit {combatdefense}, hitting for {damage}% damage!\n")
-                enemyhealth -= damage
-                if enemyhealth <= 0:
-                    print(f"You have killed the {enemyname}!\n")
+                enemy_stats["enemyhealth"] -= damage
+                if enemy_stats["enemyhealth"] <= 0:
+                    print(f"You have killed the {enemy_stats["enemyname"]}!\n")
                     input("Press (enter) to continue\n")
                     checkxp()            
                 else:
-                    playerturn = False
+                    combat_variables["playerturn"] = False
                     combat()
 
 # player chooses magic                    
         elif action == "W":
             action = ""  
-            magicmenu = True
-            playerturn = False
+            combat_variables["magicmenu"] = True
+            combat_variables["playerturn"] = False
             battlemagic()
                     
 # enemy's turn                    
-    if not playerturn and not magicmenu:
-        playerturn = True
+    if not combat_variables["playerturn"] and not combat_variables["magicmenu"]:
+        combat_variables["playerturn"] = True
         keylogging = False
-        if enemyhealth < 30:
-            woundpenalty = 3
-        elif enemyhealth < 55:
-            woundpenalty = 2
-        elif enemyhealth < 80:
-            woundpenalty = 1
+        if enemy_stats["enemyhealth"] < 30:
+            combat_variables["woundpenalty"] = 3
+        elif enemy_stats["enemyhealth"] < 55:
+            combat_variables["woundpenalty"] = 2
+        elif enemy_stats["enemyhealth"] < 80:
+            combat_variables["woundpenalty"] = 1
         else:
-            woundpenalty = 0
+            combat_variables["woundpenalty"] = 0
 
         # check to see if enemy is asleep
-        if enemysleepcounter >= 1:
-            enemysleepcounter -= 1
-            if enemysleepcounter <= 0:
-                print(f"The {enemyname} wakes up!")
+        if enemy_stats["enemysleepcounter"] >= 1:
+            enemy_stats["enemysleepcounter"] -= 1
+            if enemy_stats["enemysleepcounter"] <= 0:
+                print(f"The {enemy_stats["enemyname"]} wakes up!")
             else: 
-                print(f"The {enemyname} is still asleep!")
+                print(f"The {enemy_stats["enemyname"]} is still asleep!")
             input("\nPress (enter) to continue\n")
             combat()
 
         # some enemies will heal themselves when they are badly wounded    
-        elif enemycanheal:
+        elif enemy_stats["enemycanheal"]:
             castchance = randint(1,2)
-            if castchance == 2 and enemyhealth <= 50:                
-                print(f"The {enemyname} casts a healing spell!")
+            if castchance == 2 and enemy_stats["enemyhealth"] <= 50:                
+                print(f"The {enemy_stats["enemyname"]} casts a healing spell!")
                 attackroll = randint(1,20)
-                attackroll += enemymagic
-                attackroll += enemycharm
-                attackroll -= woundpenalty
+                attackroll += enemy_stats["enemymagic"]
+                attackroll += enemy_stats["enemycharm"]
+                attackroll -= combat_variables["woundpenalty"]
                 combatdefense = 10
-                combatdefense += magic
-                combatdefense += charm
+                combatdefense += player_stats["magic"]
+                combatdefense += player_stats["charm"]
                 if attackroll < combatdefense:
-                    print(f"The {enemyname} rolls a {attackroll} against a target of {combatdefense}. The spell doesn't work!\n")
+                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} against a target of {combatdefense}. The spell doesn't work!\n")
                     input("Press (enter) to continue\n")
                     combat()
                 else:
                     damage = attackroll - combatdefense + 1
                     damage = damage * 5
-                    print(f"The {enemyname} rolls a {attackroll} against a target of {combatdefense}. The spell heals {damage}% damage!\n")
-                    enemyhealth += damage
-                    if enemyhealth > 100:
-                        enemyhealth = 100
+                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} against a target of {combatdefense}. The spell heals {damage}% damage!\n")
+                    enemy_stats["enemyhealth"] += damage
+                    if enemy_stats["enemyhealth"] > 100:
+                        enemy_stats["enemyhealth"] = 100
                     input("Press (enter) to continue\n")
                     combat()  
             
         # some enemies use magic to attack           
-        elif enemycancast:
+        elif enemy_stats["enemycancast"]:
             castchance = randint(1,5)
             if castchance <= 4:                
-                print(f"The {enemyname} casts a spell on you!")
+                print(f"The {enemy_stats["enemyname"]} casts a spell on you!")
                 attackroll = randint(1,20)
                 # clerics have a defense bonus against attacks of a magical nature
-                if playerclass == "cleric":
+                if player_stats["playerclass"] == "cleric":
                     if attackroll >= 19:
                         attackroll = randint(1,20)
                         print("Cleric reroll!")  
-                attackroll += enemymagic
-                attackroll += enemymagicweapon
-                attackroll -= woundpenalty
+                attackroll += enemy_stats["enemymagic"]
+                attackroll += enemy_stats["enemymagic"]weapon
+                attackroll -= combat_variables["woundpenalty"]
                 combatdefense = 10
-                combatdefense += magic
-                combatdefense += charm
+                combatdefense += player_stats["magic"]
+                combatdefense += player_stats["charm"]
                 if attackroll < combatdefense:
-                    print(f"The {enemyname} rolls a {attackroll} to hit {combatdefense}. You resist the spell!\n")
+                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. You resist the spell!\n")
                     input("Press (enter) to continue\n")
                     combat()
                 else:
                     damage = attackroll - combatdefense + 1
                     damage = damage * 5
-                    print(f"The {enemyname} rolls a {attackroll} to hit {combatdefense}. The spell causes {damage}% damage!\n")
-                    health -= damage
-                    if health <= 0:
-                        print(f"You were killed by the {enemyname}!\n")
+                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. The spell causes {damage}% damage!\n")
+                    player_stats["health"] -= damage
+                    if player_stats["health"] <= 0:
+                        print(f"You were killed by the {enemy_stats["enemyname"]}!\n")
                         quit()
                     else:
                         input("Press (enter) to continue\n")
@@ -2116,34 +1881,34 @@ You are fighting a {enemyname}. It is {enemywound}wounded.
                 enemyphysicalattack()
    
         # certain enemies breathe fire
-        elif enemybreath:
+        elif enemy_stats["enemybreath"]:
             breathchance = randint(1,2)
             if breathchance == 1:
-                print(f"The {enemyname} uses its breath attack on you!")
+                print(f"The {enemy_stats["enemyname"]} uses its breath attack on you!")
                 attackroll = randint(1,20)
                 # clerics have a defense bonus against attacks of a magical nature
-                if playerclass == "cleric":
+                if player_stats["playerclass"] == "cleric":
                     if attackroll >= 19:
                         attackroll = randint(1,20)
                         print("Cleric reroll!")  
-                attackroll += enemyattack
-                attackroll += enemyweapon
-                attackroll -= woundpenalty
+                attackroll += enemy_stats["enemyattack"]
+                attackroll += enemy_stats["enemyweapon"]
+                attackroll -= combat_variables["woundpenalty"]
                 combatdefense = 10
-                combatdefense += magic
-                combatdefense += charm
+                combatdefense += player_stats["magic"]
+                combatdefense += player_stats["charm"]
                 if attackroll < combatdefense:
-                    print(f"The {enemyname} rolls a {attackroll} to hit {combatdefense}. You dodge its breath attack!\n")
-                    playerturn = True
+                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. You dodge its breath attack!\n")
+                    combat_variables["playerturn"] = True
                     input("Press (enter) to continue\n")
                     combat()
                 else:
                     damage = attackroll - combatdefense + 1
                     damage = damage * 5
-                    print(f"The {enemyname} rolls a {attackroll} to hit {combatdefense}. You are hit for {damage}% damage!\n")
-                    health -= damage
-                    if health <= 0:
-                        print(f"You were killed by the {enemyname}!\n")
+                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. You are hit for {damage}% damage!\n")
+                    player_stats["health"] -= damage
+                    if player_stats["health"] <= 0:
+                        print(f"You were killed by the {enemy_stats["enemyname"]}!\n")
                         quit()
                     else:
                         input("Press (enter) to continue\n")
@@ -2157,35 +1922,35 @@ def enemyphysicalattack():
     global defense
     global armor
     global health
-    global enemyname
-    global enemyattack 
-    global enemyweapon 
+    global enemy_stats["enemyname"]
+    global enemy_stats["enemyattack"] 
+    global enemy_stats["enemyweapon"] 
     global action
-    global playerturn    
-    print(f"The {enemyname} attacks!\n")
+    global combat_variables["playerturn"]    
+    print(f"The {enemy_stats["enemyname"]} attacks!\n")
     attackroll = randint(1,20)
     # bards have a defense bonus for being lucky
-    if playerclass == "bard":
+    if player_stats["playerclass"] == "bard":
         if attackroll >= 19:
             attackroll = randint(1,20)
             print("Bard reroll!")  
-    attackroll += enemyattack
-    attackroll += enemyweapon
-    attackroll -= woundpenalty
+    attackroll += enemy_stats["enemyattack"]
+    attackroll += enemy_stats["enemyweapon"]
+    attackroll -= combat_variables["woundpenalty"]
     combatdefense = 10
-    combatdefense += defense
-    combatdefense += armor
+    combatdefense += player_stats["defense"]
+    combatdefense += player_stats["armor"]
     if attackroll < combatdefense:
-        print(f"The {enemyname} rolls a {attackroll} to hit {combatdefense}. A miss!\n")
+        print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. A miss!\n")
         input("Press (enter) to continue\n")
         combat()
     else:
         damage = attackroll - combatdefense + 1
         damage = damage * 5
-        print(f"The {enemyname} rolls a {attackroll} to hit {combatdefense}, hitting for {damage}% damage!\n")
-        health -= damage
-        if health <= 0:
-            print(f"You were killed by the {enemyname}!\n")
+        print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}, hitting for {damage}% damage!\n")
+        player_stats["health"] -= damage
+        if player_stats["health"] <= 0:
+            print(f"You were killed by the {enemy_stats["enemyname"]}!\n")
             quit()
         else:
             input("Press (enter) to continue\n")
@@ -2197,163 +1962,163 @@ def battlemagic():
     global playerclass
     global classlevel
     global health
-    global enemyhealth
+    global enemy_stats["enemyhealth"]
     global spellslot1
     global spellslot2
     global spellslot3
     global spellslot4
     global magic
     global magicweapon
-    global enemyname
-    global enemymagic
-    global enemycharm
-    global woundpenalty
-    global enemywound
+    global enemy_stats["enemyname"]
+    global enemy_stats["enemymagic"]
+    global enemy_stats["enemycharm"]
+    global combat_variables["woundpenalty"]
+    global enemy_stats["enemywound"]
     global action
-    global playerturn
+    global combat_variables["playerturn"]
     global keylogging
-    global magicmenu
+    global combat_variables["magicmenu"]
     keylogging = True
-    if magicmenu:
+    if combat_variables["magicmenu"]:
         clear()
-        print(f"""{playername} the {heritage} {playerclass} (Lvl: {classlevel})
-Health: {health}%
+        print(f"""{player_stats["playername"]} the {player_stats["heritage"]} {player_stats["playerclass"]} (Lvl: {player_stats["classlevel"]})
+Health: {player_stats["health"]}%
 
-You are fighting a {enemyname}. It is {enemywound}wounded.
+You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}wounded.
 
                 ^
-             {spellslot1}
+             {player_stats["spellslot1"]}
 
-<{spellslot2}     Spell ?    {spellslot3}> 
+<{player_stats["spellslot2"]}     Spell ?    {player_stats["spellslot3"]}> 
 
-             {spellslot4}
+             {player_stats["spellslot4"]}
                 v
         """)
         print("Press (enter) to cancel.\n")  
     # player tries to cast the spell in slot 1        
         if action == "N":
             action = ""
-            magicmenu = False
+            combat_variables["magicmenu"] = False
             castspellslot1()
             
         elif action == "RETURN":
-            playerturn = True
-            magicmenu = False
+            combat_variables["playerturn"] = True
+            combat_variables["magicmenu"] = False
             combat()
     else:
-        playerturn = True
+        combat_variables["playerturn"] = True
         combat()
         
 def castspellslot1():
     global spellslot1
-    global enemyname
+    global enemy_stats["enemyname"]
     global sneak
     global playerclass
     global magic
     global magicweapon
-    global enemymagic
-    global enemycharm
-    global enemyhealth
+    global enemy_stats["enemymagic"]
+    global enemy_stats["enemycharm"]
+    global enemy_stats["enemyhealth"]
     global charm
     global health
-    global enemysleepcounter
-    if spellslot1 == "~blaze~":
+    global enemy_stats["enemysleepcounter"]
+    if player_stats["spellslot1"] == "~blaze~":
         action = ""
-        playerturn = False 
+        combat_variables["playerturn"] = False 
         keylogging = False
-        print(f"You cast {spellslot1} on the {enemyname}!")
+        print(f"You cast {player_stats["spellslot1"]} on the {enemy_stats["enemyname"]}!")
         attackroll = randint(1,20)
-        if sneak or enemysleepcounter >= 1:
+        if combat_variables["sneak"] or enemy_stats["enemysleepcounter"] >= 1:
             attackroll2 = randint(1,20)
             if attackroll2 > attackroll:
                 attackroll = attackroll2 
-            sneak = False
-            enemysleepcounter = 1
-        if playerclass == "mage":
+            combat_variables["sneak"] = False
+            enemy_stats["enemysleepcounter"] = 1
+        if player_stats["playerclass"] == "mage":
             if attackroll <= 2:
                 attackroll = randint(1,20)
                 print("Mage reroll!")
-        attackroll += magic
-        attackroll += magicweapon
-        attackroll -= woundpenalty
+        attackroll += player_stats["magic"]
+        attackroll += player_stats["magicweapon"]
+        attackroll -= combat_variables["woundpenalty"]
         combatdefense = 10
-        combatdefense += enemymagic
-        combatdefense += enemycharm
+        combatdefense += enemy_stats["enemymagic"]
+        combatdefense += enemy_stats["enemycharm"]
         if attackroll < combatdefense:
             print(f"You roll a {attackroll} to hit {combatdefense}. Your spell does not work!\n")
-            playerturn = False
+            combat_variables["playerturn"] = False
             combat()
         else:
             damage = attackroll - combatdefense + 1
             damage = damage * 5
             print(f"You roll a {attackroll} to hit {combatdefense}. The spell hits for {damage}% damage!\n")
-            enemyhealth -= damage
-            if enemyhealth <= 0:
-                print(f"You have killed the {enemyname}!\n")
+            enemy_stats["enemyhealth"] -= damage
+            if enemy_stats["enemyhealth"] <= 0:
+                print(f"You have killed the {enemy_stats["enemyname"]}!\n")
                 input("Press (enter) to continue\n")
                 checkxp()            
             else:
-                playerturn = False
+                combat_variables["playerturn"] = False
                 combat()
         
-    elif spellslot1 == "restore":
+    elif player_stats["spellslot1"] == "restore":
         action = ""
-        playerturn = False 
+        combat_variables["playerturn"] = False 
         keylogging = False
-        print(f"You cast {spellslot1} on yourself!")
+        print(f"You cast {player_stats["spellslot1"]} on yourself!")
         attackroll = randint(1,20)
         
-        if sneak: 
-            sneak = False
-        if playerclass == "cleric":
+        if combat_variables["sneak"]: 
+            combat_variables["sneak"] = False
+        if player_stats["playerclass"] == "cleric":
             attackroll2 = randint(1,20)
             if attackroll < attackroll2:
                 attackroll = attackroll2
                 print("Cleric bonus kicks in!")
-        attackroll += magic
-        attackroll += charm
-        attackroll -= woundpenalty
+        attackroll += player_stats["magic"]
+        attackroll += player_stats["charm"]
+        attackroll -= combat_variables["woundpenalty"]
         combatdefense = 10
-        combatdefense += enemymagic
-        combatdefense += enemycharm
+        combatdefense += enemy_stats["enemymagic"]
+        combatdefense += enemy_stats["enemycharm"]
         if attackroll < combatdefense:
             print(f"You roll a {attackroll} against a spell difficulty of {combatdefense}. Your spell does not work!\n")
-            playerturn = False
+            combat_variables["playerturn"] = False
             combat()
         else:
             damage = attackroll - combatdefense + 1
             damage = damage * 5
             print(f"You roll a {attackroll} against a spell difficulty of {combatdefense}. You are healed by {damage}%\n")
-            health += damage
-            if health > 100:
-                health = 100           
-            playerturn = False
+            player_stats["health"] += damage
+            if player_stats["health"] > 100:
+                player_stats["health"] = 100           
+            combat_variables["playerturn"] = False
             combat()        
 
-    elif spellslot1 == "~sleep~":
+    elif player_stats["spellslot1"] == "~sleep~":
         action = ""
-        playerturn = False 
+        combat_variables["playerturn"] = False 
         keylogging = False
-        print(f"You cast {spellslot1} on the {enemyname}!")
+        print(f"You cast {player_stats["spellslot1"]} on the {enemy_stats["enemyname"]}!")
         attackroll = randint(1,20)        
-        if sneak:
+        if combat_variables["sneak"]:
             attackroll2 = randint(1,20)
             if attackroll2 > attackroll:
                 attackroll = attackroll2 
-            sneak = False
-        if playerclass == "bard":
+            combat_variables["sneak"] = False
+        if player_stats["playerclass"] == "bard":
             if attackroll <= 2:
                 attackroll = randint(1,20)
                 print("Bard bonus kicks in!")
-        attackroll += magic
-        attackroll += magicweapon
-        attackroll -= woundpenalty
+        attackroll += player_stats["magic"]
+        attackroll += player_stats["magicweapon"]
+        attackroll -= combat_variables["woundpenalty"]
         combatdefense = 10
-        combatdefense += enemymagic
-        combatdefense += enemycharm
+        combatdefense += enemy_stats["enemymagic"]
+        combatdefense += enemy_stats["enemycharm"]
         if attackroll < combatdefense:
             print(f"You roll a {attackroll} against your target's resistance of {combatdefense}. Your spell does not work!\n")
-            playerturn = False
+            combat_variables["playerturn"] = False
             combat()
         else:
             damage = attackroll - combatdefense + 1
@@ -2362,73 +2127,75 @@ def castspellslot1():
                 damage = 2
             if damage > 5:
                 damage = 5
-            print(f"You roll a {attackroll} against your target's resistance of {combatdefense}. The {enemyname} falls asleep for {damage} turns.\n")
-            enemysleepcounter = damage         
-            playerturn = False
+            print(f"You roll a {attackroll} against your target's resistance of {combatdefense}. The {enemy_stats["enemyname"]} falls asleep for {damage} turns.\n")
+            enemy_stats["enemysleepcounter"] = damage         
+            combat_variables["playerturn"] = False
             combat()                  
         
     else:
         print("There is no spell in that slot!")
         input("Press (enter) to continue\n")
-        playerturn = True
+        combat_variables["playerturn"] = True
         combat() 
             
 def checkxp():
     global experience
-    global xpdrop
+    global enemy_stats["xpdrop"]
     global gold
-    global golddrop
-    global enemyname
-    global enemylevel
+    global enemy_stats["golddrop"]
+    global enemy_stats["enemyname"]
+    global enemy_stats["enemylevel"]
     global classlevel
     global effectivelevel    
-    global enemycanheal
+    global enemy_stats["enemycanheal"]
+    global combat_variables["incombat"]
     clear()
-    enemycanheal = False
-    enemycancast = False
-    enemybreath = False
+    combat_variables["incombat"] = False
+    enemy_stats["enemycanheal"] = False
+    enemy_stats["enemycancast"] = False
+    enemy_stats["enemybreath"] = False
 # next line exists for debug purposes, comment it out when not debugging
-#    print(f"xp drop: {xpdrop}")
+#    print(f"xp drop: {enemy_stats["xpdrop"]}")
     xpmod = 0
-    totallevel = classlevel + effectivelevel
+    totallevel = player_stats["classlevel"] + player_stats["effectivelevel"]
 # enemies weaker than the player drop less xp, enemies stronger drop extra
-    quarterlevel = enemylevel * 4
-    thirdlevel = enemylevel * 3
-    halflevel = enemylevel * 2
+    quarterlevel = enemy_stats["enemylevel"] * 4
+    thirdlevel = enemy_stats["enemylevel"] * 3
+    halflevel = enemy_stats["enemylevel"] * 2
     if totallevel >= quarterlevel:
-        xpmod = xpdrop * .75
+        xpmod = enemy_stats["xpdrop"] * .75
         xpmod = round(xpmod)
-        xpdrop -= xpmod
+        enemy_stats["xpdrop"] -= xpmod
     elif totallevel >= thirdlevel:
-        xpmod = xpdrop * .66
+        xpmod = enemy_stats["xpdrop"] * .66
         xpmod = round(xpmod)
-        xpdrop -= xpmod
+        enemy_stats["xpdrop"] -= xpmod
     elif totallevel >= halflevel:
-        xpmod = xpdrop * .5
+        xpmod = enemy_stats["xpdrop"] * .5
         xpmod = round(xpmod)
-        xpdrop -= xpmod
-    elif totallevel < enemylevel:
-        xpmod = xpdrop * 1.5
+        enemy_stats["xpdrop"] -= xpmod
+    elif totallevel < enemy_stats["enemylevel"]:
+        xpmod = enemy_stats["xpdrop"] * 1.5
         xpmod = round(xpmod)
-        xpdrop = xpmod
+        enemy_stats["xpdrop"] = xpmod
     else:
         xpmod = 0
-    experience += xpdrop
-    gold += golddrop
-    print(f"For defeating the {enemyname} you have gained {xpdrop} xp and {golddrop} gold.\n")
+    player_stats["experience"] += enemy_stats["xpdrop"]
+    player_stats["gold"] += enemy_stats["golddrop"]
+    print(f"For defeating the {enemy_stats["enemyname"]} you have gained {enemy_stats["xpdrop"]} xp and {enemy_stats["golddrop"]} gold.\n")
 # these lines exist for debug purposes, comment them out when not debugging    
-#    print(f"""enemy level: {enemylevel}
-#class level: {classlevel}
-#effective level: {effectivelevel}
+#    print(f"""enemy level: {enemy_stats["enemylevel"]}
+#class level: {player_stats["classlevel"]}
+#effective level: {player_stats["effectivelevel"]}
 #total level: {totallevel}
 #xp modifier: {xpmod}
-#xp gained: {xpdrop}
+#xp gained: {enemy_stats["xpdrop"]}
 #    """)
     input("Press (enter) to continue\n")
 # check for level up
     xpneeded = totallevel * 10
-    if experience >= xpneeded:
-        experience -= xpneeded
+    if player_stats["experience"] >= xpneeded:
+        player_stats["experience"] -= xpneeded
         levelup()
     else:
         town()
@@ -2445,164 +2212,156 @@ def levelup():
     global freshmagicweapons
     global freshcharms
     global freshspells
-    classlevel += 1
-    print(f"Your level has increased to {classlevel}!\n")
+    player_stats["classlevel"] += 1
+    print(f"Your level has increased to {player_stats["classlevel"]}!\n")
 # warriors always gain either attack or defense and the game tries to balance those two abilities
-    if playerclass == "warrior":
-        if attack < defense:
-            attack += 1
-            print(f"Attack increased to {attack}!\n")
+    if player_stats["playerclass"] == "warrior":
+        if player_stats["attack"] < player_stats["defense"]:
+            player_stats["attack"] += 1
+            print(f"Attack increased to {player_stats["attack"]}!\n")
             increasedstat = "attack"
-        elif defense < attack:
-            defense += 1
-            print(f"Defense increased to {defense}!\n")
+        elif player_stats["defense"] < player_stats["attack"]:
+            player_stats["defense"] += 1
+            print(f"Defense increased to {player_stats["defense"]}!\n")
             increasedstat = "defense"
         else:
             randomability = randint(1,2)
             if randomability == 1:
-                attack += 1
-                print(f"Attack increased to {attack}!\n")
+                player_stats["attack"] += 1
+                print(f"Attack increased to {player_stats["attack"]}!\n")
                 increasedstat = "attack"
             else:
-                defense += 1
-                print(f"Defense increased to {defense}!\n")
+                player_stats["defense"] += 1
+                print(f"Defense increased to {player_stats["defense"]}!\n")
                 increasedstat = "defense"
 # warriors then get one more ability upgrade, favoring agility over magic
         randomability = randint(1,3)
         if randomability == 1:
-            magic += 1
-            print(f"Magic increased to {magic}!\n")
+            player_stats["magic"] += 1
+            print(f"Magic increased to {player_stats["magic"]}!\n")
         if randomability == 2:
-            agility += 1
-            print(f"Agility increased to {agility}!\n")
+            player_stats["agility"] += 1
+            print(f"Agility increased to {player_stats["agility"]}!\n")
         else:
             if increasedstat == "attack":
-                defense += 1
-                print(f"Defense increased to {defense}!\n")
+                player_stats["defense"] += 1
+                print(f"Defense increased to {player_stats["defense"]}!\n")
             else:
-                attack += 1
-                print(f"Attack increased to {attack}!\n")
+                player_stats["attack"] += 1
+                print(f"Attack increased to {player_stats["attack"]}!\n")
             
 # rogues always get a point of agility
-    elif playerclass == "rogue":
-        agility += 1
-        print(f"Agility increased to {agility}!\n")  
+    elif player_stats["playerclass"] == "rogue":
+        player_stats["agility"] += 1
+        print(f"Agility increased to {player_stats["agility"]}!\n")  
         
 # rogues then get one more ability upgrade, favoring attack over defense or magic
         randomability = randint(1,4)
         if randomability == 1:
-            magic += 1
-            print(f"Magic increased to {magic}!\n")
+            player_stats["magic"] += 1
+            print(f"Magic increased to {player_stats["magic"]}!\n")
         elif randomability == 2:
-            defense += 1
-            print(f"Defense increased to {defense}!\n")
+            player_stats["defense"] += 1
+            print(f"Defense increased to {player_stats["defense"]}!\n")
         else:
-            attack += 1
-            print(f"Attack increased to {attack}!\n")            
+            player_stats["attack"] += 1
+            print(f"Attack increased to {player_stats["attack"]}!\n")            
 
 # mages always get a point of magic
-    elif playerclass == "mage":
-        magic += 1
-        print(f"Magic increased to {magic}!\n")  
+    elif player_stats["playerclass"] == "mage":
+        player_stats["magic"] += 1
+        print(f"Magic increased to {player_stats["magic"]}!\n")  
         
 # mages then get one more ability upgrade, favoring agility over attack or defense
         randomability = randint(1,4)
         if randomability == 1:
-            attack += 1
-            print(f"Attack increased to {attack}!\n")
+            player_stats["attack"] += 1
+            print(f"Attack increased to {player_stats["attack"]}!\n")
         elif randomability == 2:
-            defense += 1
-            print(f"Defense increased to {defense}!\n")
+            player_stats["defense"] += 1
+            print(f"Defense increased to {player_stats["defense"]}!\n")
         else:
-            agility += 1
-            print(f"Agility increased to {agility}!\n")             
+            player_stats["agility"] += 1
+            print(f"Agility increased to {player_stats["agility"]}!\n")             
 
 # clerics always gain either defense or magic and the game tries to balance those two abilities
-    elif playerclass == "cleric":
-        if magic < defense:
-            magic += 1
-            print(f"Magic increased to {magic}!\n")
+    elif player_stats["playerclass"] == "cleric":
+        if player_stats["magic"] < player_stats["defense"]:
+            player_stats["magic"] += 1
+            print(f"Magic increased to {player_stats["magic"]}!\n")
             increasedstat = "magic"
-        elif defense < magic:
-            defense += 1
-            print(f"Defense increased to {defense}!\n")
+        elif player_stats["defense"] < player_stats["magic"]:
+            player_stats["defense"] += 1
+            print(f"Defense increased to {player_stats["defense"]}!\n")
             increasedstat = "defense"
         else:
             randomability = randint(1,2)
             if randomability == 1:
-                magic += 1
-                print(f"Magic increased to {magic}!\n")
+                player_stats["magic"] += 1
+                print(f"Magic increased to {player_stats["magic"]}!\n")
                 increasedstat = "magic"
             else:
-                defense += 1
-                print(f"Defense increased to {defense}!\n")
+                player_stats["defense"] += 1
+                print(f"Defense increased to {player_stats["defense"]}!\n")
                 increasedstat = "defense"
 # clerics then get one more ability upgrade
         randomability = randint(1,3)
         if randomability == 1:
-            attack += 1
-            print(f"Attack increased to {attack}!\n")
+            player_stats["attack"] += 1
+            print(f"Attack increased to {player_stats["attack"]}!\n")
         elif randomability == 2:
-            agility += 1
-            print(f"Agility increased to {agility}!\n")  
+            player_stats["agility"] += 1
+            print(f"Agility increased to {player_stats["agility"]}!\n")  
         else:
             if increasedstat == "magic":
-                defense += 1
-                print(f"Defense increased to {defense}!\n")
+                player_stats["defense"] += 1
+                print(f"Defense increased to {player_stats["defense"]}!\n")
             else:
-                magic += 1
-                print(f"Magic increased to {magic}!\n")
+                player_stats["magic"] += 1
+                print(f"Magic increased to {player_stats["magic"]}!\n")
 
     # a bard's growth balances magic and agility             
-    elif playerclass == "bard":
-        if magic < agility:
-            magic += 1
-            print(f"Magic increased to {magic}!\n")
-        elif agility < magic:
-            agility += 1
-            print(f"Agility increased to {agility}!\n")
+    elif player_stats["playerclass"] == "bard":
+        if player_stats["magic"] < player_stats["agility"]:
+            player_stats["magic"] += 1
+            print(f"Magic increased to {player_stats["magic"]}!\n")
+        elif player_stats["agility"] < player_stats["magic"]:
+            player_stats["agility"] += 1
+            print(f"Agility increased to {player_stats["agility"]}!\n")
         else:
             randomability = randint(1,2)
             if randomability == 1:
-                magic += 1
-                print(f"Magic increased to {magic}!\n")
+                player_stats["magic"] += 1
+                print(f"Magic increased to {player_stats["magic"]}!\n")
             else:
-                agility += 1
-                print(f"Agility increased to {agility}!\n")             
+                player_stats["agility"] += 1
+                print(f"Agility increased to {player_stats["agility"]}!\n")             
     # a bard's growth also balances attack and defense
-        if defense < attack:
-            defense += 1
-            print(f"Defense increased to {defense}!\n")
-        elif attack < defense:
-            attack += 1
-            print(f"Attack increased to {attack}!\n")
+        if player_stats["defense"] < player_stats["attack"]:
+            player_stats["defense"] += 1
+            print(f"Defense increased to {player_stats["defense"]}!\n")
+        elif player_stats["attack"] < player_stats["defense"]:
+            player_stats["attack"] += 1
+            print(f"Attack increased to {player_stats["attack"]}!\n")
         else:
             randomability = randint(1,2)
             if randomability == 1:
-                defense += 1
-                print(f"Defense increased to {defense}!\n")
+                player_stats["defense"] += 1
+                print(f"Defense increased to {player_stats["defense"]}!\n")
             else:
-                attack += 1
-                print(f"Attack increased to {attack}!\n") 
+                player_stats["attack"] += 1
+                print(f"Attack increased to {player_stats["attack"]}!\n") 
                 
     input("Press (enter) to continue\n")
-    if classlevel == 4 or classlevel == 8 or classlevel == 12 or classlevel == 16 or classlevel == 20:
-        freshweapons = True
-        fresharmor = True
-        freshmagicweapons = True
-        freshcharms = True
-        freshspells = True
+    if player_stats["classlevel"] == 4 or player_stats["classlevel"] == 8 or player_stats["classlevel"] == 12 or player_stats["classlevel"] == 16 or player_stats["classlevel"] == 20:
+        player_stats["freshweapons"] = True
+        player_stats["fresharmor"] = True
+        player_stats["freshmagicweapons"] = True
+        player_stats["freshcharms"] = True
+        player_stats["freshspells"] = True
     town()
 
-if freshgame:    
-    print("Fresh game was true")
-    input()
-    freshgame = False
-    gamestart()
-else:
-    print("Fresh game was false")
-    input()
-    town()
+gamestart()
 
 while keylogging:
     k = getkey()
