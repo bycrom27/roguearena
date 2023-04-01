@@ -83,7 +83,7 @@ enemy_stats = {
     "enemymagic": 1,
     "enemyweapon": 0,
     "enemyarmor": 0,
-    "enemymagic"]weapon": 0,
+    "enemymagicweapon": 0,
     "enemycharm": 0,
     "enemyhealth": 20,
     "enemylevel": 1,
@@ -203,13 +203,9 @@ def gamestart():
     if choice == "l" or choice == "load" or choice == "L":
         clear()
         print("""Choose a game file to load.
-
 Save Game (1)
-
 Save Game (2)
-
 Save Game (3)
-
 """)
         savegameslot = input()
         state = load_game()
@@ -234,8 +230,6 @@ def rolldice():
         die4 = randint(1, 6)
         print(f"""
 Rolling stats...         
-
-
            ---
 Attack:   | {die1} |
            ---
@@ -243,7 +237,6 @@ Attack:   | {die1} |
            ---
 Defense:  | {die2} |
            ---
-
            ---
 Agility:  | {die3} |
            ---
@@ -251,7 +244,6 @@ Agility:  | {die3} |
            ---
 Magic:    | {die4} |
            ---
-
 """)
     choice = input("Would you like to keep this character? y/n\n\n")
     if choice == "y" or choice == "yes":
@@ -268,8 +260,6 @@ def chooseheritage():
     clear()
     print(f"""
 Please choose a heritage.          (human) Humans are good at many different things.
-
-
            ---            
 Attack:   | {player_stats["attack"]} |                    (orc) Orcs are very strong and make fierce warriors.
            ---
@@ -277,7 +267,6 @@ Attack:   | {player_stats["attack"]} |                    (orc) Orcs are very st
            ---            
 Defense:  | {player_stats["defense"]} |                    (dwarf) Dwarves are strong, sturdy folk.
            ---
-
            ---            
 Agility:  | {player_stats["agility"]} |                    (goblin) Goblins are sneaky and make good rogues.
            ---
@@ -285,7 +274,6 @@ Agility:  | {player_stats["agility"]} |                    (goblin) Goblins are 
            ---            
 Magic:    | {player_stats["magic"]} |                    (elf) Elves are nimble and gifted with magic.
            ---
-
 """)    
     playerchoice = input("Type the heritage of your choice.\n\n")
     if playerchoice == "orc" or playerchoice == "o":
@@ -331,8 +319,6 @@ def chooseclass():
     clear()
     print(f"""
 Now choose a class.                (warrior) Warriors are the best at fighting.
-
-
            ---            
 Attack:   | {player_stats["attack"]} |                    (rogue) Rogues are very stealthy.
            ---
@@ -340,7 +326,6 @@ Attack:   | {player_stats["attack"]} |                    (rogue) Rogues are ver
            ---            
 Defense:  | {player_stats["defense"]} |                    (mage) Mages are masters of magic.
            ---
-
            ---            
 Agility:  | {player_stats["agility"]} |                    (cleric) Clerics are tough magic users.
            ---
@@ -348,7 +333,6 @@ Agility:  | {player_stats["agility"]} |                    (cleric) Clerics are 
            ---            
 Magic:    | {player_stats["magic"]} |                    (bard) Bards are knowledgable about many things.
            ---
-
 """)    
     playerchoice = input("Type the class of your choice.\n\n")
     if playerchoice == "rogue" or playerchoice == "r":
@@ -378,8 +362,6 @@ def confirmcharacter():
     print(f"""
 Heritage: {player_stats["heritage"]} 
 Class: {player_stats["playerclass"]}          
-
-
            ---            
 Attack:   | {player_stats["attack"]} |                    
            ---
@@ -387,7 +369,6 @@ Attack:   | {player_stats["attack"]} |
            ---            
 Defense:  | {player_stats["defense"]} |                    
            ---
-
            ---            
 Agility:  | {player_stats["agility"]} |                    
            ---
@@ -395,7 +376,6 @@ Agility:  | {player_stats["agility"]} |
            ---            
 Magic:    | {player_stats["magic"]} |                    
            ---
-
 """)    
     playerchoice = input("Keep this character?\n\n")
     if playerchoice == "yes" or playerchoice == "y":
@@ -413,8 +393,6 @@ def namecharacter():
 Name: {player_stats["playername"]}
 Heritage: {player_stats["heritage"]} 
 Class: {player_stats["playerclass"]}          
-
-
            ---            
 Attack:   | {player_stats["attack"]} |                    
            ---
@@ -422,7 +400,6 @@ Attack:   | {player_stats["attack"]} |
            ---            
 Defense:  | {player_stats["defense"]} |                    
            ---
-
            ---            
 Agility:  | {player_stats["agility"]} |                    
            ---
@@ -430,7 +407,6 @@ Agility:  | {player_stats["agility"]} |
            ---            
 Magic:    | {player_stats["magic"]} |                    
            ---
-
 Welcome! And good luck! """)        
         
     finalizecharacter()  
@@ -465,17 +441,13 @@ def finalizecharacter():
     town()
 
 def resolveactions():
-    global combat_variables["magicmenu"]
-    global combat_variables["incombat"]
     if combat_variables["magicmenu"]:
         battlemagic()
     elif combat_variables["incombat"]:
         combat()
     
 def town():   
-    global combat_variables["firstturn"]
     global keylogging    
-
     combat_variables["firstturn"] = True
     keylogging = False
     player_stats["health"] = 100
@@ -489,7 +461,6 @@ def town():
     (3) Enter the arena
     
     (4) Check your stats
-
     """)
 
     choice = input()
@@ -510,21 +481,17 @@ Class:         {player_stats["playerclass"]}
 Level:         {player_stats["classlevel"]} 
 Experience:    {player_stats["experience"]}
 Gold:          {player_stats["gold"]}
-
 Attack:        {player_stats["attack"]}
 Defense:       {player_stats["defense"]}
 Agility:       {player_stats["agility"]}
 Magic:         {player_stats["magic"]}
-
 Weapon:        {player_stats["weaponname"]} ({player_stats["weapon"]})
 Armor:         {player_stats["armorname"]} ({player_stats["armor"]})
 Magic Focus:   {player_stats["magicweaponname"]} ({player_stats["magicweapon"]})
 Magic Charm:   {player_stats["charmname"]} ({player_stats["charm"]})
-
 Spells known:  
 {player_stats["spellslot1"]} {player_stats["spellslot2"]} 
 {player_stats["spellslot3"]} {player_stats["spellslot4"]}
-
 Press (enter) to continue""")  
     input()
     town()
@@ -544,7 +511,6 @@ def arena():
     (4) Platinum League
     
     (5) Leave
-
     """)
     choice = input()
     if choice == "1":
@@ -559,21 +525,6 @@ def arena():
         town()
     
 def copperleague():
-    global enemy_stats["enemyname"] 
-    global enemy_stats["enemybreath"] 
-    global enemy_stats["enemycancast"] 
-    global enemy_stats["enemyattack"] 
-    global enemy_stats["enemydefense"] 
-    global enemy_stats["enemyagility"] 
-    global enemy_stats["enemymagic"] 
-    global enemy_stats["enemyweapon"] 
-    global enemy_stats["enemyarmor"] 
-    global enemy_stats["enemymagic"]weapon 
-    global enemy_stats["enemycharm"] 
-    global enemy_stats["enemyhealth"] 
-    global enemy_stats["enemylevel"] 
-    global enemy_stats["xpdrop"] 
-    global enemy_stats["golddrop"] 
     clear()
     print("""The Copper League is where most amateurs begin their fighting career. The easiest enemies can be found here.
     
@@ -590,7 +541,6 @@ def copperleague():
     (5) Orc
     
     (6) Leave
-
     """)    
     
     choice = input()
@@ -602,7 +552,7 @@ def copperleague():
         enemy_stats["enemymagic"] = 1
         enemy_stats["enemyweapon"] = 1
         enemy_stats["enemyarmor"] = 1
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 1
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 3
@@ -616,7 +566,7 @@ def copperleague():
         enemy_stats["enemymagic"] = 1
         enemy_stats["enemyweapon"] = 1
         enemy_stats["enemyarmor"] = 1
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 1
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 4
@@ -630,7 +580,7 @@ def copperleague():
         enemy_stats["enemymagic"] = 2
         enemy_stats["enemyweapon"] = 2
         enemy_stats["enemyarmor"] = 2
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 2
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 5
@@ -644,7 +594,7 @@ def copperleague():
         enemy_stats["enemymagic"] = 3
         enemy_stats["enemyweapon"] = 2
         enemy_stats["enemyarmor"] = 2
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 2
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 6
@@ -658,7 +608,7 @@ def copperleague():
         enemy_stats["enemymagic"] = 3
         enemy_stats["enemyweapon"] = 4
         enemy_stats["enemyarmor"] = 4
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 4
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 7
@@ -674,21 +624,6 @@ def copperleague():
     combat()        
         
 def silverleague():
-    global enemy_stats["enemyname"] 
-    global enemy_stats["enemybreath"] 
-    global enemy_stats["enemycancast"] 
-    global enemy_stats["enemyattack"] 
-    global enemy_stats["enemydefense"] 
-    global enemy_stats["enemyagility"] 
-    global enemy_stats["enemymagic"] 
-    global enemy_stats["enemyweapon"] 
-    global enemy_stats["enemyarmor"] 
-    global enemy_stats["enemymagic"]weapon 
-    global enemy_stats["enemycharm"] 
-    global enemy_stats["enemyhealth"] 
-    global enemy_stats["enemylevel"] 
-    global enemy_stats["xpdrop"] 
-    global enemy_stats["golddrop"]
     clear()
     print("""The Silver League is for veterans who have started to earn a reputation in the arena. 
 The enemies here are a little more difficult than those found in the Copper League.
@@ -706,7 +641,6 @@ The enemies here are a little more difficult than those found in the Copper Leag
     (5) Dark Dwarf
     
     (6) Leave
-
     """)   
     choice = input()        
     if choice == "1":
@@ -717,7 +651,7 @@ The enemies here are a little more difficult than those found in the Copper Leag
         enemy_stats["enemymagic"] = 2
         enemy_stats["enemyweapon"] = 4
         enemy_stats["enemyarmor"] = 4
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 4
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 8
@@ -732,7 +666,7 @@ The enemies here are a little more difficult than those found in the Copper Leag
         enemy_stats["enemymagic"] = 6
         enemy_stats["enemyweapon"] = 4
         enemy_stats["enemyarmor"] = 4
-        enemy_stats["enemymagic"]weapon = 4
+        enemy_stats["enemymagicweapon"] = 4
         enemy_stats["enemycharm"] = 4
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 9
@@ -746,7 +680,7 @@ The enemies here are a little more difficult than those found in the Copper Leag
         enemy_stats["enemymagic"] = 1
         enemy_stats["enemyweapon"] = 4
         enemy_stats["enemyarmor"] = 4
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 4
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 10
@@ -761,7 +695,7 @@ The enemies here are a little more difficult than those found in the Copper Leag
         enemy_stats["enemymagic"] = 5
         enemy_stats["enemyweapon"] = 4
         enemy_stats["enemyarmor"] = 4
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 4
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 11
@@ -775,7 +709,7 @@ The enemies here are a little more difficult than those found in the Copper Leag
         enemy_stats["enemymagic"] = 4
         enemy_stats["enemyweapon"] = 6
         enemy_stats["enemyarmor"] = 6
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 6
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 12
@@ -791,21 +725,6 @@ The enemies here are a little more difficult than those found in the Copper Leag
     combat()
 
 def goldleague():
-    global enemy_stats["enemyname"] 
-    global enemy_stats["enemybreath"] 
-    global enemy_stats["enemycancast"] 
-    global enemy_stats["enemyattack"] 
-    global enemy_stats["enemydefense"] 
-    global enemy_stats["enemyagility"] 
-    global enemy_stats["enemymagic"] 
-    global enemy_stats["enemyweapon"] 
-    global enemy_stats["enemyarmor"] 
-    global enemy_stats["enemymagic"]weapon 
-    global enemy_stats["enemycharm"] 
-    global enemy_stats["enemyhealth"] 
-    global enemy_stats["enemylevel"] 
-    global enemy_stats["xpdrop"] 
-    global enemy_stats["golddrop"]
     clear()
     print("""The Gold League is for champions who are cunning enough or strong enough to survive the lower
 leagues. It is a truly dangerous place to compete.
@@ -823,7 +742,6 @@ leagues. It is a truly dangerous place to compete.
     (5) Giant
     
     (6) Leave
-
     """)   
     choice = input()        
     if choice == "1":
@@ -834,7 +752,7 @@ leagues. It is a truly dangerous place to compete.
         enemy_stats["enemymagic"] = 6
         enemy_stats["enemyweapon"] = 6
         enemy_stats["enemyarmor"] = 6
-        enemy_stats["enemymagic"]weapon = 6
+        enemy_stats["enemymagicweapon"] = 6
         enemy_stats["enemycharm"] = 6
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 13
@@ -849,7 +767,7 @@ leagues. It is a truly dangerous place to compete.
         enemy_stats["enemymagic"] = 10
         enemy_stats["enemyweapon"] = 6
         enemy_stats["enemyarmor"] = 6
-        enemy_stats["enemymagic"]weapon = 6
+        enemy_stats["enemymagicweapon"] = 6
         enemy_stats["enemycharm"] = 6
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 14
@@ -864,7 +782,7 @@ leagues. It is a truly dangerous place to compete.
         enemy_stats["enemymagic"] = 7
         enemy_stats["enemyweapon"] = 6
         enemy_stats["enemyarmor"] = 6
-        enemy_stats["enemymagic"]weapon = 6
+        enemy_stats["enemymagicweapon"] = 6
         enemy_stats["enemycharm"] = 6
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 15
@@ -878,7 +796,7 @@ leagues. It is a truly dangerous place to compete.
         enemy_stats["enemymagic"] = 6
         enemy_stats["enemyweapon"] = 6
         enemy_stats["enemyarmor"] = 6
-        enemy_stats["enemymagic"]weapon = 6
+        enemy_stats["enemymagicweapon"] = 6
         enemy_stats["enemycharm"] = 6
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 16
@@ -892,7 +810,7 @@ leagues. It is a truly dangerous place to compete.
         enemy_stats["enemymagic"] = 6
         enemy_stats["enemyweapon"] = 8
         enemy_stats["enemyarmor"] = 8
-        enemy_stats["enemymagic"]weapon = 0
+        enemy_stats["enemymagicweapon"] = 0
         enemy_stats["enemycharm"] = 8
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 17
@@ -908,22 +826,6 @@ leagues. It is a truly dangerous place to compete.
     combat()    
 
 def platinumleague():
-    global enemy_stats["enemyname"] 
-    global enemy_stats["enemybreath"] 
-    global enemy_stats["enemycancast"] 
-    global enemy_stats["enemycanheal"]
-    global enemy_stats["enemyattack"] 
-    global enemy_stats["enemydefense"] 
-    global enemy_stats["enemyagility"] 
-    global enemy_stats["enemymagic"] 
-    global enemy_stats["enemyweapon"] 
-    global enemy_stats["enemyarmor"] 
-    global enemy_stats["enemymagic"]weapon 
-    global enemy_stats["enemycharm"] 
-    global enemy_stats["enemyhealth"] 
-    global enemy_stats["enemylevel"] 
-    global enemy_stats["xpdrop"] 
-    global enemy_stats["golddrop"]
     clear()
     print("""The Platinum League is for champions who are cunning enough or strong enough to survive the lower leagues. It is a truly dangerous place to compete.
     
@@ -940,7 +842,6 @@ def platinumleague():
     (5) Dragon
     
     (6) Leave
-
     """)   
     choice = input()        
     if choice == "1":
@@ -952,7 +853,7 @@ def platinumleague():
         enemy_stats["enemymagic"] = 10
         enemy_stats["enemyweapon"] = 8
         enemy_stats["enemyarmor"] = 8
-        enemy_stats["enemymagic"]weapon = 8
+        enemy_stats["enemymagicweapon"] = 8
         enemy_stats["enemycharm"] = 8
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 18
@@ -966,7 +867,7 @@ def platinumleague():
         enemy_stats["enemymagic"] = 10
         enemy_stats["enemyweapon"] = 8
         enemy_stats["enemyarmor"] = 8
-        enemy_stats["enemymagic"]weapon = 8
+        enemy_stats["enemymagicweapon"] = 8
         enemy_stats["enemycharm"] = 8
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 19
@@ -980,7 +881,7 @@ def platinumleague():
         enemy_stats["enemymagic"] = 10
         enemy_stats["enemyweapon"] = 8
         enemy_stats["enemyarmor"] = 8
-        enemy_stats["enemymagic"]weapon = 8
+        enemy_stats["enemymagicweapon"] = 8
         enemy_stats["enemycharm"] = 8
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 20
@@ -995,7 +896,7 @@ def platinumleague():
         enemy_stats["enemymagic"] = 12
         enemy_stats["enemyweapon"] = 8
         enemy_stats["enemyarmor"] = 8
-        enemy_stats["enemymagic"]weapon = 8
+        enemy_stats["enemymagicweapon"] = 8
         enemy_stats["enemycharm"] = 8
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 21
@@ -1010,7 +911,7 @@ def platinumleague():
         enemy_stats["enemymagic"] = 10
         enemy_stats["enemyweapon"] = 10
         enemy_stats["enemyarmor"] = 10
-        enemy_stats["enemymagic"]weapon = 10
+        enemy_stats["enemymagicweapon"] = 10
         enemy_stats["enemycharm"] = 10
         enemy_stats["enemyhealth"] = 100
         enemy_stats["enemylevel"] = 22
@@ -1060,24 +961,6 @@ What would you like to buy?
 
 # the weapon shop has up to six items for sale for a pseudo-random price. only one is available at the beginning of the game but more are unlocked as the player gains levels.        
 def weaponshop():
-    global freshweapons
-    global weapon
-    global weaponname
-    global gold
-    global purchaseitem
-    global itemvalue
-    global itembonus
-    global itemtype  
-    global totalassets
-    global resellitem
-    global resellvalue
-    global weaponvalue1
-    global weaponvalue2
-    global weaponvalue3
-    global weaponvalue4
-    global weaponvalue5
-    global weaponvalue6
-    global playerclass
     clear()
 # players may get some many back when they sell their current weapon to purchase a new one
 
@@ -1197,24 +1080,6 @@ def weaponshop():
 
 # the armor shop uses pretty well the same code as the weapon shop with some different variables    
 def armorshop():
-    global fresharmor
-    global armor
-    global armorname
-    global gold
-    global purchaseitem
-    global itemvalue
-    global itembonus
-    global itemtype  
-    global totalassets
-    global resellitem
-    global resellvalue
-    global armorvalue1
-    global item_values["armorvalue2"]
-    global item_values["armorvalue3"]
-    global item_values["armorvalue4"]
-    global item_values["armorvalue5"]
-    global item_values["armorvalue6"]
-    global playerclass
     clear()
     if player_stats["armor"] == 1:
         shop_variables["resellvalue"] = 5
@@ -1282,17 +1147,17 @@ def armorshop():
         armorslot4 = "magic robe"
         armorslot5 = "sage robe"
         armorslot6 = "aegis robe"        
-    print(f"1) {armorslot1} {item_values["armorvalue1"]} gold")
+    print(f'1) {armorslot1} {item_values["armorvalue1"]} gold')
     if player_stats["classlevel"] >= 4:
-        print(f"2) {armorslot2} {item_values["armorvalue2"]} gold")
+        print(f'2) {armorslot2} {item_values["armorvalue2"]} gold')
     if player_stats["classlevel"] >= 8:
-        print(f"3) {armorslot3} {item_values["armorvalue3"]} gold")
+        print(f'3) {armorslot3} {item_values["armorvalue3"]} gold')
     if player_stats["classlevel"] >= 12:
-        print(f"4) {armorslot4} {item_values["armorvalue4"]} gold")
+        print(f'4) {armorslot4} {item_values["armorvalue4"]} gold')
     if player_stats["classlevel"] >= 16:
-        print(f"5) {armorslot5} {item_values["armorvalue5"]} gold")
+        print(f'5) {armorslot5} {item_values["armorvalue5"]} gold')
     if player_stats["classlevel"] >= 20:
-        print(f"6) {armorslot6} {item_values["armorvalue6"]} gold")
+        print(f'6) {armorslot6} {item_values["armorvalue6"]} gold')
     print("\nPress (enter) to leave\n")
     choice = input()
     clear()
@@ -1327,24 +1192,6 @@ def armorshop():
     
 # the magic weapon shop uses pretty well the same code as the weapon shop with some different variables    
 def focusshop():
-    global freshmagicweapons
-    global magicweapon
-    global magicweaponname
-    global gold
-    global purchaseitem
-    global itemvalue
-    global shop_variables["itembonus"]
-    global shop_variables["itemtype"]  
-    global shop_variables["totalassets"]
-    global shop_variables["resellitem"]
-    global shop_variables["resellvalue"]
-    global item_values["mweaponvalue1"]
-    global item_values["mweaponvalue2"]
-    global item_values["mweaponvalue3"]
-    global item_values["mweaponvalue4"]
-    global item_values["mweaponvalue5"]
-    global item_values["mweaponvalue6"]
-    global playerclass
     clear()
     if player_stats["magicweapon"] == 1:
         shop_variables["resellvalue"] = 5
@@ -1410,17 +1257,17 @@ def focusshop():
         mweaponslot5 = "staff of the magus"
         mweaponslot6 = "starlight staff"       
 # the store displays the weapons that are currently available and how much they cost
-    print(f"1) {mweaponslot1} {item_values["mweaponvalue1"]} gold")
+    print(f'1) {mweaponslot1} {item_values["mweaponvalue1"]} gold')
     if player_stats["classlevel"] >= 4:
-        print(f"2) {mweaponslot2} {item_values["mweaponvalue2"]} gold")
+        print(f'2) {mweaponslot2} {item_values["mweaponvalue2"]} gold')
     if player_stats["classlevel"] >= 8:
-        print(f"3) {mweaponslot3} {item_values["mweaponvalue3"]} gold")
+        print(f'3) {mweaponslot3} {item_values["mweaponvalue3"]} gold')
     if player_stats["classlevel"] >= 12:
-        print(f"4) {mweaponslot4} {item_values["mweaponvalue4"]} gold")
+        print(f'4) {mweaponslot4} {item_values["mweaponvalue4"]} gold')
     if player_stats["classlevel"] >= 16:
-        print(f"5) {mweaponslot5} {item_values["mweaponvalue5"]} gold")
+        print(f'5) {mweaponslot5} {item_values["mweaponvalue5"]} gold')
     if player_stats["classlevel"] >= 20:
-        print(f"6) {mweaponslot6} {item_values["mweaponvalue6"]} gold")
+        print(f'6) {mweaponslot6} {item_values["mweaponvalue6"]} gold')
     print("\nPress (enter) to leave\n")
     choice = input()
     clear()
@@ -1454,24 +1301,6 @@ def focusshop():
     confirmpurchase()    
 
 def charmshop():
-    global freshcharms
-    global charm
-    global charmname
-    global gold
-    global purchaseitem
-    global itemvalue
-    global shop_variables["itembonus"]
-    global shop_variables["itemtype"]  
-    global shop_variables["totalassets"]
-    global shop_variables["resellitem"]
-    global shop_variables["resellvalue"]
-    global item_values["charmvalue1"]
-    global item_values["charmvalue2"]
-    global item_values["charmvalue3"]
-    global item_values["charmvalue4"]
-    global item_values["charmvalue5"]
-    global item_values["charmvalue6"]
-    global playerclass
     clear()
     if player_stats["charm"] == 1:
         shop_variables["resellvalue"] = 5
@@ -1529,17 +1358,17 @@ def charmshop():
         charmslot4 = "garnet pendant"
         charmslot5 = "opal pendant"
         charmslot6 = "jade pendant" 
-    print(f"1) {charmslot1} {item_values["charmvalue1"]} gold")
+    print(f'1) {charmslot1} {item_values["charmvalue1"]} gold')
     if player_stats["classlevel"] >= 4:
-        print(f"2) {charmslot2} {item_values["charmvalue2"]} gold")
+        print(f'2) {charmslot2} {item_values["charmvalue2"]} gold')
     if player_stats["classlevel"] >= 8:
-        print(f"3) {charmslot3} {item_values["charmvalue3"]} gold")
+        print(f'3) {charmslot3} {item_values["charmvalue3"]} gold')
     if player_stats["classlevel"] >= 12:
-        print(f"4) {charmslot4} {item_values["charmvalue4"]} gold")
+        print(f'4) {charmslot4} {item_values["charmvalue4"]} gold')
     if player_stats["classlevel"] >= 16:
-        print(f"5) {charmslot5} {item_values["charmvalue5"]} gold")
+        print(f'5) {charmslot5} {item_values["charmvalue5"]} gold')
     if player_stats["classlevel"] >= 20:
-        print(f"6) {charmslot6} {item_values["charmvalue6"]} gold")
+        print(f'6) {charmslot6} {item_values["charmvalue6"]} gold')
     print("\nPress (enter) to leave\n")
     choice = input()
     clear()
@@ -1578,7 +1407,7 @@ def spellshop():
     input()
     shop()
     
-# this function resolves purchases from the weapon, armor, magic weapon, and charm stores, which is why it has so many global variables    
+# this function resolves purchases from the weapon, armor, magic weapon, and charm stores    
 def confirmpurchase():
     global slotchosen 
     if shop_variables["itemvalue"] > shop_variables["totalassets"]:
@@ -1636,59 +1465,15 @@ def confirmpurchase():
             town()    
         
 def combat():
-    global attack
-    global defense
-    global agility
-    global magic
-    global heritage
-    global playerclass
-    global playername
-    global classlevel
-    global effectivelevel
-    global weaponname
-    global weapon
-    global armorname
-    global armor
-    global magicweaponname
-    global magicweapon
-    global charmname
-    global charm
-    global spellslot1
-    global spellslot2
-    global spellslot3
-    global spellslot4
-    global health
-    global enemy_stats["enemyname"]
-    global enemy_stats["enemybreath"]
-    global enemy_stats["enemycancast"]
-    global enemy_stats["enemycanheal"]
-    global enemy_stats["enemyattack"] 
-    global enemy_stats["enemydefense"] 
-    global enemy_stats["enemyagility"] 
-    global enemy_stats["enemymagic"] 
-    global enemy_stats["enemyweapon"] 
-    global enemy_stats["enemyarmor"] 
-    global enemy_stats["enemyhealth"] 
-    global enemy_stats["enemylevel"] 
-    global enemy_stats["xpdrop"]    
-    global enemy_stats["golddrop"]
-    global combat_variables["firstturn"]
     global action
-    global combat_variables["playerturn"]
-    global sneak
     global keylogging
-    global combat_variables["woundpenalty"]
-    global enemy_stats["enemywound"]
-    global combat_variables["magicmenu"]
-    global combat_variables["incombat"]
-    global enemy_stats["enemysleepcounter"]
     keylogging = True
     combat_variables["incombat"] = True
     # see who goes first
     if combat_variables["firstturn"]:
         enemy_stats["enemysleepcounter"] = 0
         clear()
-        print(f"A {enemy_stats["enemyname"]} appears!\n")
+        print(f'A {enemy_stats["enemyname"]} appears!\n')
         combat_variables["firstturn"] = False
         initiative = randint(1,20)
         if player_stats["playerclass"] == "rogue":
@@ -1699,16 +1484,16 @@ def combat():
         enemyinitiative = 10
         enemyinitiative += enemy_stats["enemyagility"]
         if initiative < enemyinitiative:
-            print(f"The {enemy_stats["enemyname"]} attacks before you are ready!\n")
+            print(f'The {enemy_stats["enemyname"]} attacks before you are ready!\n')
             combat_variables["playerturn"] = False
             combat()
         elif initiative <= enemyinitiative + 5:
-            print(f"You strike first before the {enemy_stats["enemyname"]}!\n")
+            print(f'You strike first before the {enemy_stats["enemyname"]}!\n')
             combat_variables["playerturn"] = True
             input("Press (enter) to continue\n")
             combat()
         else:
-            print(f"You sneak up on the {enemy_stats["enemyname"]}!\n")
+            print(f'You sneak up on the {enemy_stats["enemyname"]}!\n')
             combat_variables["playerturn"] = True
             combat_variables["sneak"] = True
             input("Press (enter) to continue\n")
@@ -1736,9 +1521,7 @@ def combat():
         clear()
         print(f"""{player_stats["playername"]} the {player_stats["heritage"]} {player_stats["playerclass"]} (Lvl: {player_stats["classlevel"]})
 Health: {player_stats["health"]}%
-
 You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}wounded.
-
              ^
            Fight
         
@@ -1753,7 +1536,7 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
             action = ""
             combat_variables["playerturn"] = False 
             keylogging = False
-            print(f"You attack the {enemy_stats["enemyname"]}!")
+            print(f'You attack the {enemy_stats["enemyname"]}!')
             attackroll = randint(1,20)
             if combat_variables["sneak"] or enemy_stats["enemysleepcounter"] >= 1:
                 attackroll2 = randint(1,20)
@@ -1773,16 +1556,16 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
             combatdefense += enemy_stats["enemydefense"]
             combatdefense += enemy_stats["enemyarmor"]
             if attackroll < combatdefense:
-                print(f"You roll a {attackroll} to hit {combatdefense}. A miss!\n")
+                print(f'You roll a {attackroll} to hit {combatdefense}. A miss!\n')
                 combat_variables["playerturn"] = False
                 combat()
             else:
                 damage = attackroll - combatdefense + 1
                 damage = damage * 5
-                print(f"You roll a {attackroll} to hit {combatdefense}, hitting for {damage}% damage!\n")
+                print(f'You roll a {attackroll} to hit {combatdefense}, hitting for {damage}% damage!\n')
                 enemy_stats["enemyhealth"] -= damage
                 if enemy_stats["enemyhealth"] <= 0:
-                    print(f"You have killed the {enemy_stats["enemyname"]}!\n")
+                    print(f'You have killed the {enemy_stats["enemyname"]}!\n')
                     input("Press (enter) to continue\n")
                     checkxp()            
                 else:
@@ -1813,9 +1596,9 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
         if enemy_stats["enemysleepcounter"] >= 1:
             enemy_stats["enemysleepcounter"] -= 1
             if enemy_stats["enemysleepcounter"] <= 0:
-                print(f"The {enemy_stats["enemyname"]} wakes up!")
+                print(f'The {enemy_stats["enemyname"]} wakes up!')
             else: 
-                print(f"The {enemy_stats["enemyname"]} is still asleep!")
+                print(f'The {enemy_stats["enemyname"]} is still asleep!')
             input("\nPress (enter) to continue\n")
             combat()
 
@@ -1823,7 +1606,7 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
         elif enemy_stats["enemycanheal"]:
             castchance = randint(1,2)
             if castchance == 2 and enemy_stats["enemyhealth"] <= 50:                
-                print(f"The {enemy_stats["enemyname"]} casts a healing spell!")
+                print(f'The {enemy_stats["enemyname"]} casts a healing spell!')
                 attackroll = randint(1,20)
                 attackroll += enemy_stats["enemymagic"]
                 attackroll += enemy_stats["enemycharm"]
@@ -1832,13 +1615,13 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
                 combatdefense += player_stats["magic"]
                 combatdefense += player_stats["charm"]
                 if attackroll < combatdefense:
-                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} against a target of {combatdefense}. The spell doesn't work!\n")
+                    print(f'The {enemy_stats["enemyname"]} rolls a {attackroll} against a target of {combatdefense}. The spell does not work!\n')
                     input("Press (enter) to continue\n")
                     combat()
                 else:
                     damage = attackroll - combatdefense + 1
                     damage = damage * 5
-                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} against a target of {combatdefense}. The spell heals {damage}% damage!\n")
+                    print(f'The {enemy_stats["enemyname"]} rolls a {attackroll} against a target of {combatdefense}. The spell heals {damage}% damage!\n')
                     enemy_stats["enemyhealth"] += damage
                     if enemy_stats["enemyhealth"] > 100:
                         enemy_stats["enemyhealth"] = 100
@@ -1849,7 +1632,7 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
         elif enemy_stats["enemycancast"]:
             castchance = randint(1,5)
             if castchance <= 4:                
-                print(f"The {enemy_stats["enemyname"]} casts a spell on you!")
+                print(f'The {enemy_stats["enemyname"]} casts a spell on you!')
                 attackroll = randint(1,20)
                 # clerics have a defense bonus against attacks of a magical nature
                 if player_stats["playerclass"] == "cleric":
@@ -1857,22 +1640,22 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
                         attackroll = randint(1,20)
                         print("Cleric reroll!")  
                 attackroll += enemy_stats["enemymagic"]
-                attackroll += enemy_stats["enemymagic"]weapon
+                attackroll += enemy_stats["enemymagicweapon"]
                 attackroll -= combat_variables["woundpenalty"]
                 combatdefense = 10
                 combatdefense += player_stats["magic"]
                 combatdefense += player_stats["charm"]
                 if attackroll < combatdefense:
-                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. You resist the spell!\n")
+                    print(f'The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. You resist the spell!\n')
                     input("Press (enter) to continue\n")
                     combat()
                 else:
                     damage = attackroll - combatdefense + 1
                     damage = damage * 5
-                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. The spell causes {damage}% damage!\n")
+                    print(f'The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. The spell causes {damage}% damage!\n')
                     player_stats["health"] -= damage
                     if player_stats["health"] <= 0:
-                        print(f"You were killed by the {enemy_stats["enemyname"]}!\n")
+                        print(f'You were killed by the {enemy_stats["enemyname"]}!\n')
                         quit()
                     else:
                         input("Press (enter) to continue\n")
@@ -1884,7 +1667,7 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
         elif enemy_stats["enemybreath"]:
             breathchance = randint(1,2)
             if breathchance == 1:
-                print(f"The {enemy_stats["enemyname"]} uses its breath attack on you!")
+                print(f'The {enemy_stats["enemyname"]} uses its breath attack on you!')
                 attackroll = randint(1,20)
                 # clerics have a defense bonus against attacks of a magical nature
                 if player_stats["playerclass"] == "cleric":
@@ -1898,17 +1681,17 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
                 combatdefense += player_stats["magic"]
                 combatdefense += player_stats["charm"]
                 if attackroll < combatdefense:
-                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. You dodge its breath attack!\n")
+                    print(f'The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. You dodge its breath attack!\n')
                     combat_variables["playerturn"] = True
                     input("Press (enter) to continue\n")
                     combat()
                 else:
                     damage = attackroll - combatdefense + 1
                     damage = damage * 5
-                    print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. You are hit for {damage}% damage!\n")
+                    print(f'The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. You are hit for {damage}% damage!\n')
                     player_stats["health"] -= damage
                     if player_stats["health"] <= 0:
-                        print(f"You were killed by the {enemy_stats["enemyname"]}!\n")
+                        print(f'You were killed by the {enemy_stats["enemyname"]}!\n')
                         quit()
                     else:
                         input("Press (enter) to continue\n")
@@ -1918,16 +1701,9 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
         else:
             enemyphysicalattack()
             
-def enemyphysicalattack():
-    global defense
-    global armor
-    global health
-    global enemy_stats["enemyname"]
-    global enemy_stats["enemyattack"] 
-    global enemy_stats["enemyweapon"] 
-    global action
-    global combat_variables["playerturn"]    
-    print(f"The {enemy_stats["enemyname"]} attacks!\n")
+def enemyphysicalattack(): 
+    global action   
+    print(f'The {enemy_stats["enemyname"]} attacks!\n')
     attackroll = randint(1,20)
     # bards have a defense bonus for being lucky
     if player_stats["playerclass"] == "bard":
@@ -1941,56 +1717,33 @@ def enemyphysicalattack():
     combatdefense += player_stats["defense"]
     combatdefense += player_stats["armor"]
     if attackroll < combatdefense:
-        print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. A miss!\n")
+        print(f'The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}. A miss!\n')
         input("Press (enter) to continue\n")
         combat()
     else:
         damage = attackroll - combatdefense + 1
         damage = damage * 5
-        print(f"The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}, hitting for {damage}% damage!\n")
+        print(f'The {enemy_stats["enemyname"]} rolls a {attackroll} to hit {combatdefense}, hitting for {damage}% damage!\n')
         player_stats["health"] -= damage
         if player_stats["health"] <= 0:
-            print(f"You were killed by the {enemy_stats["enemyname"]}!\n")
+            print(f'You were killed by the {enemy_stats["enemyname"]}!\n')
             quit()
         else:
             input("Press (enter) to continue\n")
             combat() 
 
 def battlemagic():
-    global playername
-    global heritage
-    global playerclass
-    global classlevel
-    global health
-    global enemy_stats["enemyhealth"]
-    global spellslot1
-    global spellslot2
-    global spellslot3
-    global spellslot4
-    global magic
-    global magicweapon
-    global enemy_stats["enemyname"]
-    global enemy_stats["enemymagic"]
-    global enemy_stats["enemycharm"]
-    global combat_variables["woundpenalty"]
-    global enemy_stats["enemywound"]
     global action
-    global combat_variables["playerturn"]
     global keylogging
-    global combat_variables["magicmenu"]
     keylogging = True
     if combat_variables["magicmenu"]:
         clear()
         print(f"""{player_stats["playername"]} the {player_stats["heritage"]} {player_stats["playerclass"]} (Lvl: {player_stats["classlevel"]})
 Health: {player_stats["health"]}%
-
 You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}wounded.
-
                 ^
              {player_stats["spellslot1"]}
-
 <{player_stats["spellslot2"]}     Spell ?    {player_stats["spellslot3"]}> 
-
              {player_stats["spellslot4"]}
                 v
         """)
@@ -2010,23 +1763,11 @@ You are fighting a {enemy_stats["enemyname"]}. It is {enemy_stats["enemywound"]}
         combat()
         
 def castspellslot1():
-    global spellslot1
-    global enemy_stats["enemyname"]
-    global sneak
-    global playerclass
-    global magic
-    global magicweapon
-    global enemy_stats["enemymagic"]
-    global enemy_stats["enemycharm"]
-    global enemy_stats["enemyhealth"]
-    global charm
-    global health
-    global enemy_stats["enemysleepcounter"]
     if player_stats["spellslot1"] == "~blaze~":
         action = ""
         combat_variables["playerturn"] = False 
         keylogging = False
-        print(f"You cast {player_stats["spellslot1"]} on the {enemy_stats["enemyname"]}!")
+        print(f'You cast {player_stats["spellslot1"]} on the {enemy_stats["enemyname"]}!')
         attackroll = randint(1,20)
         if combat_variables["sneak"] or enemy_stats["enemysleepcounter"] >= 1:
             attackroll2 = randint(1,20)
@@ -2045,16 +1786,16 @@ def castspellslot1():
         combatdefense += enemy_stats["enemymagic"]
         combatdefense += enemy_stats["enemycharm"]
         if attackroll < combatdefense:
-            print(f"You roll a {attackroll} to hit {combatdefense}. Your spell does not work!\n")
+            print(f'You roll a {attackroll} to hit {combatdefense}. Your spell does not work!\n')
             combat_variables["playerturn"] = False
             combat()
         else:
             damage = attackroll - combatdefense + 1
             damage = damage * 5
-            print(f"You roll a {attackroll} to hit {combatdefense}. The spell hits for {damage}% damage!\n")
+            print(f'You roll a {attackroll} to hit {combatdefense}. The spell hits for {damage}% damage!\n')
             enemy_stats["enemyhealth"] -= damage
             if enemy_stats["enemyhealth"] <= 0:
-                print(f"You have killed the {enemy_stats["enemyname"]}!\n")
+                print(f'You have killed the {enemy_stats["enemyname"]}!\n')
                 input("Press (enter) to continue\n")
                 checkxp()            
             else:
@@ -2065,7 +1806,7 @@ def castspellslot1():
         action = ""
         combat_variables["playerturn"] = False 
         keylogging = False
-        print(f"You cast {player_stats["spellslot1"]} on yourself!")
+        print(f'You cast {player_stats["spellslot1"]} on yourself!')
         attackroll = randint(1,20)
         
         if combat_variables["sneak"]: 
@@ -2082,13 +1823,13 @@ def castspellslot1():
         combatdefense += enemy_stats["enemymagic"]
         combatdefense += enemy_stats["enemycharm"]
         if attackroll < combatdefense:
-            print(f"You roll a {attackroll} against a spell difficulty of {combatdefense}. Your spell does not work!\n")
+            print(f'You roll a {attackroll} against a spell difficulty of {combatdefense}. Your spell does not work!\n')
             combat_variables["playerturn"] = False
             combat()
         else:
             damage = attackroll - combatdefense + 1
             damage = damage * 5
-            print(f"You roll a {attackroll} against a spell difficulty of {combatdefense}. You are healed by {damage}%\n")
+            print(f'You roll a {attackroll} against a spell difficulty of {combatdefense}. You are healed by {damage}%\n')
             player_stats["health"] += damage
             if player_stats["health"] > 100:
                 player_stats["health"] = 100           
@@ -2099,7 +1840,7 @@ def castspellslot1():
         action = ""
         combat_variables["playerturn"] = False 
         keylogging = False
-        print(f"You cast {player_stats["spellslot1"]} on the {enemy_stats["enemyname"]}!")
+        print(f'You cast {player_stats["spellslot1"]} on the {enemy_stats["enemyname"]}!')
         attackroll = randint(1,20)        
         if combat_variables["sneak"]:
             attackroll2 = randint(1,20)
@@ -2117,7 +1858,7 @@ def castspellslot1():
         combatdefense += enemy_stats["enemymagic"]
         combatdefense += enemy_stats["enemycharm"]
         if attackroll < combatdefense:
-            print(f"You roll a {attackroll} against your target's resistance of {combatdefense}. Your spell does not work!\n")
+            print(f'You roll a {attackroll} against a resistance of {combatdefense}. Your spell does not work!\n')
             combat_variables["playerturn"] = False
             combat()
         else:
@@ -2127,7 +1868,7 @@ def castspellslot1():
                 damage = 2
             if damage > 5:
                 damage = 5
-            print(f"You roll a {attackroll} against your target's resistance of {combatdefense}. The {enemy_stats["enemyname"]} falls asleep for {damage} turns.\n")
+            print(f'You roll a {attackroll} against a resistance of {combatdefense}. The {enemy_stats["enemyname"]} falls asleep for {damage} turns.\n')
             enemy_stats["enemysleepcounter"] = damage         
             combat_variables["playerturn"] = False
             combat()                  
@@ -2139,23 +1880,13 @@ def castspellslot1():
         combat() 
             
 def checkxp():
-    global experience
-    global enemy_stats["xpdrop"]
-    global gold
-    global enemy_stats["golddrop"]
-    global enemy_stats["enemyname"]
-    global enemy_stats["enemylevel"]
-    global classlevel
-    global effectivelevel    
-    global enemy_stats["enemycanheal"]
-    global combat_variables["incombat"]
     clear()
     combat_variables["incombat"] = False
     enemy_stats["enemycanheal"] = False
     enemy_stats["enemycancast"] = False
     enemy_stats["enemybreath"] = False
 # next line exists for debug purposes, comment it out when not debugging
-#    print(f"xp drop: {enemy_stats["xpdrop"]}")
+#    print(f'xp drop: {enemy_stats["xpdrop"]}')
     xpmod = 0
     totallevel = player_stats["classlevel"] + player_stats["effectivelevel"]
 # enemies weaker than the player drop less xp, enemies stronger drop extra
@@ -2182,7 +1913,7 @@ def checkxp():
         xpmod = 0
     player_stats["experience"] += enemy_stats["xpdrop"]
     player_stats["gold"] += enemy_stats["golddrop"]
-    print(f"For defeating the {enemy_stats["enemyname"]} you have gained {enemy_stats["xpdrop"]} xp and {enemy_stats["golddrop"]} gold.\n")
+    print(f'For defeating the {enemy_stats["enemyname"]} you have gained {enemy_stats["xpdrop"]} xp and {enemy_stats["golddrop"]} gold.\n')
 # these lines exist for debug purposes, comment them out when not debugging    
 #    print(f"""enemy level: {enemy_stats["enemylevel"]}
 #class level: {player_stats["classlevel"]}
@@ -2201,156 +1932,145 @@ def checkxp():
         town()
     
 def levelup():
-    global classlevel  
-    global attack
-    global defense
-    global agility
-    global magic
-    global playerclass
-    global freshweapons
-    global fresharmor
-    global freshmagicweapons
-    global freshcharms
-    global freshspells
     player_stats["classlevel"] += 1
-    print(f"Your level has increased to {player_stats["classlevel"]}!\n")
+    print(f'Your level has increased to {player_stats["classlevel"]}!\n')
 # warriors always gain either attack or defense and the game tries to balance those two abilities
     if player_stats["playerclass"] == "warrior":
         if player_stats["attack"] < player_stats["defense"]:
             player_stats["attack"] += 1
-            print(f"Attack increased to {player_stats["attack"]}!\n")
+            print(f'Attack increased to {player_stats["attack"]}!\n')
             increasedstat = "attack"
         elif player_stats["defense"] < player_stats["attack"]:
             player_stats["defense"] += 1
-            print(f"Defense increased to {player_stats["defense"]}!\n")
+            print(f'Defense increased to {player_stats["defense"]}!\n')
             increasedstat = "defense"
         else:
             randomability = randint(1,2)
             if randomability == 1:
                 player_stats["attack"] += 1
-                print(f"Attack increased to {player_stats["attack"]}!\n")
+                print(f'Attack increased to {player_stats["attack"]}!\n')
                 increasedstat = "attack"
             else:
                 player_stats["defense"] += 1
-                print(f"Defense increased to {player_stats["defense"]}!\n")
+                print(f'Defense increased to {player_stats["defense"]}!\n')
                 increasedstat = "defense"
 # warriors then get one more ability upgrade, favoring agility over magic
         randomability = randint(1,3)
         if randomability == 1:
             player_stats["magic"] += 1
-            print(f"Magic increased to {player_stats["magic"]}!\n")
+            print(f'Magic increased to {player_stats["magic"]}!\n')
         if randomability == 2:
             player_stats["agility"] += 1
-            print(f"Agility increased to {player_stats["agility"]}!\n")
+            print(f'Agility increased to {player_stats["agility"]}!\n')
         else:
             if increasedstat == "attack":
                 player_stats["defense"] += 1
-                print(f"Defense increased to {player_stats["defense"]}!\n")
+                print(f'Defense increased to {player_stats["defense"]}!\n')
             else:
                 player_stats["attack"] += 1
-                print(f"Attack increased to {player_stats["attack"]}!\n")
+                print(f'Attack increased to {player_stats["attack"]}!\n')
             
 # rogues always get a point of agility
     elif player_stats["playerclass"] == "rogue":
         player_stats["agility"] += 1
-        print(f"Agility increased to {player_stats["agility"]}!\n")  
+        print(f'Agility increased to {player_stats["agility"]}!\n')  
         
 # rogues then get one more ability upgrade, favoring attack over defense or magic
         randomability = randint(1,4)
         if randomability == 1:
             player_stats["magic"] += 1
-            print(f"Magic increased to {player_stats["magic"]}!\n")
+            print(f'Magic increased to {player_stats["magic"]}!\n')
         elif randomability == 2:
             player_stats["defense"] += 1
-            print(f"Defense increased to {player_stats["defense"]}!\n")
+            print(f'Defense increased to {player_stats["defense"]}!\n')
         else:
             player_stats["attack"] += 1
-            print(f"Attack increased to {player_stats["attack"]}!\n")            
+            print(f'Attack increased to {player_stats["attack"]}!\n')            
 
 # mages always get a point of magic
     elif player_stats["playerclass"] == "mage":
         player_stats["magic"] += 1
-        print(f"Magic increased to {player_stats["magic"]}!\n")  
+        print(f'Magic increased to {player_stats["magic"]}!\n')  
         
 # mages then get one more ability upgrade, favoring agility over attack or defense
         randomability = randint(1,4)
         if randomability == 1:
             player_stats["attack"] += 1
-            print(f"Attack increased to {player_stats["attack"]}!\n")
+            print(f'Attack increased to {player_stats["attack"]}!\n')
         elif randomability == 2:
             player_stats["defense"] += 1
-            print(f"Defense increased to {player_stats["defense"]}!\n")
+            print(f'Defense increased to {player_stats["defense"]}!\n')
         else:
             player_stats["agility"] += 1
-            print(f"Agility increased to {player_stats["agility"]}!\n")             
+            print(f'Agility increased to {player_stats["agility"]}!\n')             
 
 # clerics always gain either defense or magic and the game tries to balance those two abilities
     elif player_stats["playerclass"] == "cleric":
         if player_stats["magic"] < player_stats["defense"]:
             player_stats["magic"] += 1
-            print(f"Magic increased to {player_stats["magic"]}!\n")
+            print(f'Magic increased to {player_stats["magic"]}!\n')
             increasedstat = "magic"
         elif player_stats["defense"] < player_stats["magic"]:
             player_stats["defense"] += 1
-            print(f"Defense increased to {player_stats["defense"]}!\n")
+            print(f'Defense increased to {player_stats["defense"]}!\n')
             increasedstat = "defense"
         else:
             randomability = randint(1,2)
             if randomability == 1:
                 player_stats["magic"] += 1
-                print(f"Magic increased to {player_stats["magic"]}!\n")
+                print(f'Magic increased to {player_stats["magic"]}!\n')
                 increasedstat = "magic"
             else:
                 player_stats["defense"] += 1
-                print(f"Defense increased to {player_stats["defense"]}!\n")
+                print(f'Defense increased to {player_stats["defense"]}!\n')
                 increasedstat = "defense"
 # clerics then get one more ability upgrade
         randomability = randint(1,3)
         if randomability == 1:
             player_stats["attack"] += 1
-            print(f"Attack increased to {player_stats["attack"]}!\n")
+            print(f'Attack increased to {player_stats["attack"]}!\n')
         elif randomability == 2:
             player_stats["agility"] += 1
-            print(f"Agility increased to {player_stats["agility"]}!\n")  
+            print(f'Agility increased to {player_stats["agility"]}!\n')  
         else:
             if increasedstat == "magic":
                 player_stats["defense"] += 1
-                print(f"Defense increased to {player_stats["defense"]}!\n")
+                print(f'Defense increased to {player_stats["defense"]}!\n')
             else:
                 player_stats["magic"] += 1
-                print(f"Magic increased to {player_stats["magic"]}!\n")
+                print(f'Magic increased to {player_stats["magic"]}!\n')
 
     # a bard's growth balances magic and agility             
     elif player_stats["playerclass"] == "bard":
         if player_stats["magic"] < player_stats["agility"]:
             player_stats["magic"] += 1
-            print(f"Magic increased to {player_stats["magic"]}!\n")
+            print(f'Magic increased to {player_stats["magic"]}!\n')
         elif player_stats["agility"] < player_stats["magic"]:
             player_stats["agility"] += 1
-            print(f"Agility increased to {player_stats["agility"]}!\n")
+            print(f'Agility increased to {player_stats["agility"]}!\n')
         else:
             randomability = randint(1,2)
             if randomability == 1:
                 player_stats["magic"] += 1
-                print(f"Magic increased to {player_stats["magic"]}!\n")
+                print(f'Magic increased to {player_stats["magic"]}!\n')
             else:
                 player_stats["agility"] += 1
-                print(f"Agility increased to {player_stats["agility"]}!\n")             
+                print(f'Agility increased to {player_stats["agility"]}!\n')             
     # a bard's growth also balances attack and defense
         if player_stats["defense"] < player_stats["attack"]:
             player_stats["defense"] += 1
-            print(f"Defense increased to {player_stats["defense"]}!\n")
+            print(f'Defense increased to {player_stats["defense"]}!\n')
         elif player_stats["attack"] < player_stats["defense"]:
             player_stats["attack"] += 1
-            print(f"Attack increased to {player_stats["attack"]}!\n")
+            print(f'Attack increased to {player_stats["attack"]}!\n')
         else:
             randomability = randint(1,2)
             if randomability == 1:
                 player_stats["defense"] += 1
-                print(f"Defense increased to {player_stats["defense"]}!\n")
+                print(f'Defense increased to {player_stats["defense"]}!\n')
             else:
                 player_stats["attack"] += 1
-                print(f"Attack increased to {player_stats["attack"]}!\n") 
+                print(f'Attack increased to {player_stats["attack"]}!\n') 
                 
     input("Press (enter) to continue\n")
     if player_stats["classlevel"] == 4 or player_stats["classlevel"] == 8 or player_stats["classlevel"] == 12 or player_stats["classlevel"] == 16 or player_stats["classlevel"] == 20:
